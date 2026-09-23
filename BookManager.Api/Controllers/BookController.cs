@@ -16,7 +16,7 @@ namespace BookManager.Api.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var ListBooks = _dbContext.book.ToList();
+            var ListBooks = _dbContext.Books.ToList();
             return Ok(ListBooks);
 
         }

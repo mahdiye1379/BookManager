@@ -1,0 +1,261 @@
+﻿@page "/books/add"
+@using BookManager.Client.Data
+
+<PageTitle>Add Book</PageTitle>
+
+<div class="add-book-page">
+
+    <!-- Header -->
+    <div class="page-header">
+
+        <div>
+            <h1>Add New Book</h1>
+            <p>Add a new book to your personal library.</p>
+        </div>
+
+        <a href="/" class="back-button">
+            ← Back to Library
+        </a>
+
+    </div>
+
+
+    <!-- Form -->
+    <div class="form-card">
+
+        <form @onclick="SaveForm">
+
+            <div class="form-section">
+
+                <div class="section-header">
+                    <h2>Basic Information</h2>
+                    <p>Enter the basic information about the book.</p>
+                </div>
+
+                <div class="form-grid">
+
+                    <!-- Title -->
+                    <div class="form-group full-width">
+
+                        <label for="title">
+                            Book Title
+                        </label>
+
+                        <input id="title"
+                               type="text"
+                               class="form-input"
+                               placeholder="Enter book title"
+                               @bind="Book.Title" />
+
+                    </div>
+
+
+                    <!-- Author -->
+                    <div class="form-group">
+
+                        <label for="author">
+                            Author
+                        </label>
+
+                        <select id="author"
+                                class="form-input"
+                                @bind="Book.AuthorId">
+
+                            <option value="">Select an author</option>
+
+                            @if (Authors is not null)
+                            @foreach (var author in Authors)
+                            {
+                                <option value="@author.ID">
+                                    @author.Name
+                                </option>
+                            }
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Category -->
+                    <div class="form-group">
+
+                        <label for="category">
+                            Category
+                        </label>
+
+                        <select id="category"
+                                class="form-input"
+                                @bind="Book.CategoryId">
+
+                            <option value="">Select a category</option>
+
+                            @if (Categories is not null)
+                            @foreach (var category in Categories)
+                            {
+                                <option value="@category.ID">
+                                    @category.Name
+                                </option>
+                            }
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Registration Date -->
+                    <div class="form-group">
+
+                        <label for="regDate">
+                            Registration Date
+                        </label>
+
+                        <input id="regDate"
+                               type="text"
+                               class="form-input"
+                               @bind="Book.RegDate" />
+
+                    </div>
+
+
+                    <!-- Total Pages -->
+                    <div class="form-group">
+
+                        <label for="totalPages">
+                            Total Pages
+                        </label>
+
+                        <input id="totalPages"
+                               type="number"
+                               min="1"
+                               class="form-input"
+                               placeholder="e.g. 350"
+                               @bind="Book.TotalPage" />
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-section">
+
+                <div class="section-header">
+                    <h2>Reading Progress</h2>
+                    <p>Keep track of your current reading progress.</p>
+                </div>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+
+                        <label for="currentPage">
+                            Current Reading Page
+                        </label>
+
+                        <input id="currentPage"
+                               type="number"
+                               min="0"
+                               class="form-input"
+                               placeholder="e.g. 120"
+                               @bind="Book.CurrentReadingPage" />
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-section">
+
+                <div class="section-header">
+                    <h2>Book Details</h2>
+                    <p>Add a summary and cover information.</p>
+                </div>
+
+                <div class="form-grid">
+
+                    <!-- Cover -->
+                    <div class="form-group full-width">
+
+                        <label for="cover">
+                            Cover Image URL
+                        </label>
+
+                        <input id="cover"
+                               type="text"
+                               class="form-input"
+                               placeholder="https://example.com/book-cover.jpg"
+                               @bind="Book.Cover" />
+
+                        <span class="input-help">
+                            Enter the URL of the book cover image.
+                        </span>
+
+                    </div>
+
+
+                    <!-- Summary -->
+                    <div class="form-group full-width">
+
+                        <label for="summary">
+                            Summary
+                        </label>
+
+                        <textarea id="summary"
+                                  class="form-textarea"
+                                  rows="6"
+                                  placeholder="Write a short summary about the book..."
+                                  @bind="Book.Summery">
+                        </textarea>
+
+                    </div>
+
+
+                    <!-- File Path -->
+                    <div class="form-group full-width">
+
+                        <label for="filePath">
+                            Book File Path
+                        </label>
+
+                        <input id="filePath"
+                               type="text"
+                               class="form-input"
+                               placeholder="C:\Books\MyBook.pdf"
+                               @bind="Book.FilePath" />
+
+                        <span class="input-help">
+                            The location of the digital book file.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="form-actions">
+
+                <a href="/" class="cancel-button">
+                    Cancel
+                </a>
+
+                <button type="submit"
+                        class="save-button">
+
+                    <span>✓</span>
+                    Save Book
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

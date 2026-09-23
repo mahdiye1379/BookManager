@@ -12,6 +12,19 @@ builder.Services.AddDbContext<BookManager_DbContext>(option=>option.UseSqlServer
 
 var app = builder.Build();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("BlazorClient", policy =>
+    {
+        policy
+            .AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
+app.UseCors("BlazorClient");
+
 // Configure the HTTP request pipeline.
 
 app.UseAuthorization();

@@ -1,101 +1,66 @@
 ﻿@page "/"
 @using BookManager.Client.Data
 
-<PageTitle>Home</PageTitle>
+<PageTitle>My Library</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="library-page">
 
-@foreach (Book item in Books)
-{
-    <p> @item.Title </p>
-    <p> @item.Cover </p>
-    <p> @item.Summery </p>
-}
+    <!-- Header -->
+    <div class="library-header">
+        <div>
+            <h1>My Library</h1>
+            <p>Your personal collection of books</p>
+        </div>
+
+        <div class="book-count">
+            <span class="count-number">@Books.Count</span>
+            <span class="count-label">Books</span>
+        </div>
+
+        <button class="add-book-button" @onclick="AddBook">AddBook</button>
+        
+    </div>
 
 
-@code {
-    public static List<Book> Books = new()
-  {
-      new Book
-      {
-          ID = Guid.NewGuid(),
-          Title = "Clean Code",
-          RegDate = "2026-09-01",
-          TotalPage = 464,
-          CurrentReadingPage = 464,
-          Cover = "cleancode.jpg",
-          Summery = "A book about writing clean and maintainable code.",
-          FilePath = "",
-          LastUpdate = DateTime.Now,
+    <!-- Books -->
+    @if (Books.Count == 0)
+    {
+        <div class="empty-state">
+            <div class="empty-icon">📚</div>
+            <h2>No books yet</h2>
+            <p>Your library is currently empty.</p>
+        </div>
+    }
+    else
+    {
+        <div class="books-grid">
 
-          Author = new Author
-          {
-              ID = Guid.NewGuid(),
-              Name = "Robert C. Martin",
-              Country = "United States",
-              Bio = "Software engineer and author."
-          },
+            @foreach (Book item in Books)
+            {
+                <div class="book-card">
 
-          Category = new Category
-          {
-              ID = Guid.NewGuid(),
-              Name = "Programming"
-          }
-      },
+                    <div class="book-cover">
+                        <div class="book-icon">📖</div>
+                    </div>
 
-      new Book
-      {
-          ID = Guid.NewGuid(),
-          Title = "The Pragmatic Programmer",
-          RegDate = "2026-09-02",
-          TotalPage = 352,
-          CurrentReadingPage = 120,
-          Cover = "pragmatic-programmer.jpg",
-          Summery = "A practical guide to becoming a better software developer.",
-          FilePath = "",
-          LastUpdate = DateTime.Now,
+                    <div class="book-content">
+                        <h2>@item.Title</h2>
 
-          Author = new Author
-          {
-              ID = Guid.NewGuid(),
-              Name = "Andrew Hunt",
-              Country = "United States",
-              Bio = "Software developer and author."
-          },
+                        <p class="book-description">
+                            A book in your personal collection.
+                        </p>
 
-          Category = new Category
-          {
-              ID = Guid.NewGuid(),
-              Name = "Programming"
-          }
-      },
+                        <div class="book-footer">
+                            <span class="book-status">In Library</span>
+                        </div>
+                    </div>
 
-      new Book
-      {
-          ID = Guid.NewGuid(),
-          Title = "1984",
-          RegDate = "2026-09-03",
-          TotalPage = 328,
-          CurrentReadingPage = 80,
-          Cover = "1984.jpg",
-          Summery = "A dystopian novel about surveillance and authoritarianism.",
-          FilePath = "",
-          LastUpdate = DateTime.Now,
+                </div>
+            }
 
-          Author = new Author
-          {
-              ID = Guid.NewGuid(),
-              Name = "George Orwell",
-              Country = "United Kingdom",
-              Bio = "English novelist and essayist."
-          },
+        </div>
+    }
 
-          Category = new Category
-          {
-              ID = Guid.NewGuid(),
-              Name = "Fiction"
-          }
-      }
-  };
-}
+</div>
+
 

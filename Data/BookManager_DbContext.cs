@@ -1,6 +1,5 @@
 ﻿using BookManager.Model;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 namespace BookManager.Data
 {
@@ -12,8 +11,8 @@ namespace BookManager.Data
 
         }
 
-        public DbSet<Author> authors { get; set; }
-        public DbSet<Book> book { get; set; }
-        public DbSet<Category> categories { get; set; }
+        public DbSet<Author> Authors { get; set; }
+        public DbSet<Book> Books { get; set; }
+        public DbSet<Category> Categories { get; set; }
     }
 }
