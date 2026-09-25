@@ -1,28 +1,24 @@
 ﻿using BookManager.Client.Data;
+using BookManager.Client.Repository.RestRepository;
 using Microsoft.AspNetCore.Components;
-using Ninject;
 using System.Net.Http.Json;
 using InjectAttribute = Microsoft.AspNetCore.Components.InjectAttribute;
-
+                
 namespace BookManager.Client.Pages
 {
     public partial class Home : ComponentBase
     {
-
-        public static List<Book> Books = new List<Book>();
+                                                    
+        public static List<Book>? Books = new List<Book>();
 
         [Inject]
         private NavigationManager Navigation { get; set; } = default;
 
-
-        HttpClient http = new HttpClient();
-
+      RestBookRepository restBookRepository = new RestBookRepository();
 
         protected override async Task OnInitializedAsync()
         {
-            http.BaseAddress = new Uri("http://192.168.41.62:8033/api/");
-            HttpResponseMessage result = await http.GetAsync("Book/Get");
-            Books = await result.Content.ReadFromJsonAsync<List<Book>>();
+            Books = await restBookRepository.GetBook();
         }
 
         public void AddBook()

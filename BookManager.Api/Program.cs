@@ -10,7 +10,6 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<BookManager_DbContext>(option=>option.UseSqlServer
     ("Data Source=.;Initial Catalog=BookManager;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;"));
 
-var app = builder.Build();
 
 builder.Services.AddCors(options =>
 {
@@ -22,6 +21,8 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod();
     });
 });
+
+var app = builder.Build();
 
 app.UseCors("BlazorClient");
 
