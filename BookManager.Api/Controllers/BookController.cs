@@ -1,4 +1,4 @@
-﻿using BookManager.Data;
+﻿using BookManager.Core.EfRepository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookManager.Api.Controllers
@@ -7,18 +7,19 @@ namespace BookManager.Api.Controllers
     [ApiController]
     public class BookController : ControllerBase
     {
-        BookManager_DbContext _dbContext;
-        public BookController(BookManager_DbContext dbContext)
+        EfBookRepository _efBookRepository;
+
+        public BookController(EfBookRepository efBookRepository)
         {
-            _dbContext = dbContext;
+            _efBookRepository = efBookRepository;
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            var ListBooks = _dbContext.Books.ToList();
+            var ListBooks = _efBookRepository.GetBooks();
             return Ok(ListBooks);
-
         }
+
     }
 }

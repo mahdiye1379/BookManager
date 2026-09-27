@@ -1,5 +1,5 @@
-﻿using BookManager.Client.Data;
-using BookManager.Client.Repository.RestRepository;
+﻿using BookManager.Client.Repository.RestRepository;
+using BookManager.Data.Model;
 using Microsoft.AspNetCore.Components;
 
 

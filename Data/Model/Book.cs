@@ -1,4 +1,4 @@
-﻿namespace BookManager.Model
+﻿namespace BookManager.Data.Model
 {
     public class Book
     {

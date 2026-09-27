@@ -1,4 +1,6 @@
-﻿using BookManager.Client.Data;
+﻿
+using BookManager.Core;
+using BookManager.Data.Model;
 using System.Net.Http.Json;
 
 namespace BookManager.Client.Repository.RestRepository

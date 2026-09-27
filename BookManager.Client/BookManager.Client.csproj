@@ -14,4 +14,8 @@
     <PackageReference Include="Ninject" Version="3.3.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BookManager.Core\BookManager.Core.csproj" />
+  </ItemGroup>
+
 </Project>

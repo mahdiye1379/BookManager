@@ -1,6 +1,7 @@
 <Solution>
   <Project Path="BookManager.Api/BookManager.Api.csproj" Id="c379ab27-dac9-409d-b7c1-9a5044e00cdb" />
   <Project Path="BookManager.Client/BookManager.Client.csproj" />
+  <Project Path="BookManager.Core/BookManager.Core.csproj" Id="89be2f9f-9c22-489f-b55e-ccb06e72240a" />
   <Project Path="BookManager/BookManager.csproj" />
   <Project Path="Data/BookManager.Data.csproj" Id="47239901-5b9c-4bc3-a86f-4ae223c1adcd" />
 </Solution>

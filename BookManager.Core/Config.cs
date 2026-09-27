@@ -1,4 +1,4 @@
-﻿namespace BookManager.Client
+﻿namespace BookManager.Core
 {
     public class Config
     {

@@ -1,4 +1,4 @@
-﻿using BookManager.Model;
+﻿using BookManager.Data.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookManager.Data
