@@ -15,9 +15,9 @@ namespace BookManager.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var ListAuthor = efAuthorRepository.GetAuthors();
+            var ListAuthor = await efAuthorRepository.GetAuthors();
             return Ok(ListAuthor);
 
         }

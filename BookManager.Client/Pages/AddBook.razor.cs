@@ -8,6 +8,7 @@ namespace BookManager.Client.Pages
 
     public partial class AddBook : ComponentBase
     {
+        public string Message { get; set; }
         public Book Book { get; set; } = new();
 
         public List<Author>? Authors { get; set; } = new();
@@ -16,6 +17,7 @@ namespace BookManager.Client.Pages
 
         RestAuthorRepository restAuthorRepository = new RestAuthorRepository();
         RestCategoryRepository restCategoryRepository = new RestCategoryRepository();
+        RestBookRepository restBookRepository = new RestBookRepository();
 
 
         protected override async Task OnInitializedAsync()
@@ -25,8 +27,15 @@ namespace BookManager.Client.Pages
             Categories = await restCategoryRepository.GetCategory();
         }
 
-        private void SaveForm()
+        private async Task SaveForm()
         {
+           (bool status,string message) result = await restBookRepository.SendSave(Book);
+
+            #if DEBUG
+
+            Message = result.message;
+
+            #endif
 
         }
     }

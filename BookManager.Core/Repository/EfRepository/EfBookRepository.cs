@@ -17,6 +17,25 @@ namespace BookManager.Core.EfRepository
 
             List<Book> Books = await _dbContext.Books.ToListAsync();
             return Books;
+
         }
+
+
+        public async Task<(bool, string)> Save(Book book)
+        {
+            try
+            {
+                _dbContext.Add(book);
+                await _dbContext.SaveChangesAsync();
+
+                return (true, "Saved!");            
+            }
+            catch (Exception ex)
+            {                               
+                return (false, ex.InnerException.Message);
+            }
+        }   
+
     }
 }
+

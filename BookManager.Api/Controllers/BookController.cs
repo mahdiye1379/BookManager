@@ -1,4 +1,5 @@
 ﻿using BookManager.Core.EfRepository;
+using BookManager.Data.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookManager.Api.Controllers
@@ -15,11 +16,22 @@ namespace BookManager.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var ListBooks = _efBookRepository.GetBooks();
+            var ListBooks = await _efBookRepository.GetBooks();
             return Ok(ListBooks);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> SendSaveRequest(Book book)
+        {
+            (bool status,string message) result = await _efBookRepository.Save(book);
+
+            if (result.status is true)
+            {
+                return Ok(result.message);
+            }
+                return BadRequest(result.message);
+        }
     }
 }

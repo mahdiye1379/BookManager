@@ -19,11 +19,11 @@
 
     </div>
 
-
+    <div style="font-size:24px;color:green">@Message</div>
     <!-- Form -->
     <div class="form-card">
 
-        <form @onclick="SaveForm">
+        <form>
 
             <div class="form-section">
 
@@ -244,7 +244,7 @@
                     Cancel
                 </a>
 
-                <button type="submit"
+                <button @onclick="SaveForm" type="submit"
                         class="save-button">
 
                     <span>✓</span>
