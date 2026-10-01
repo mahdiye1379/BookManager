@@ -1,5 +1,6 @@
-﻿using BookManager.Client.Repository.RestRepository;
+﻿
 using BookManager.Data.Model;
+using BookManager.Data.Repository.RestRepository;
 using Microsoft.AspNetCore.Components;
 using System.Net.Http.Json;
 using InjectAttribute = Microsoft.AspNetCore.Components.InjectAttribute;
@@ -21,10 +22,7 @@ namespace BookManager.Client.Pages
             Books = await restBookRepository.GetBook();
         }
 
-        public void AddBook()
-        {
-            Navigation.NavigateTo("/book/add/");
-        }
+ 
        
     }
 

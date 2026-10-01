@@ -2,7 +2,7 @@
 using BookManager.Data.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookManager.Core.EfRepository
+namespace BookManager.Data.Repository.EfRepository
 {
     public class EfBookRepository
     {
@@ -19,20 +19,38 @@ namespace BookManager.Core.EfRepository
             return Books;
 
         }
+        public async Task<Book?> GetOneBookFromServer(Guid id)
+        {
+
+            Book? book = await _dbContext.Books.AsNoTracking().FirstOrDefaultAsync(x=>x.ID == id);
+            return book;
+
+        }
 
 
         public async Task<(bool, string)> Save(Book book)
         {
             try
             {
-                _dbContext.Add(book);
+               Book? DbBook = await GetOneBookFromServer(book.ID);
+
+                if (DbBook is null)
+                {
+                    _dbContext.Add(book);
+                }
+                else
+                {
+                    _dbContext.Update(book);
+                }
+
                 await _dbContext.SaveChangesAsync();
 
                 return (true, "Saved!");            
             }
             catch (Exception ex)
-            {                               
-                return (false, ex.InnerException.Message);
+            {
+                var exn = ex.InnerException;
+                return (false, exn is null ? ex.Message : exn.Message);
             }
         }   
 

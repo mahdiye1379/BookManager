@@ -1,0 +1,148 @@
+﻿@page "/library"
+@using BookManager.Data.Model
+@inject NavigationManager Navigation
+
+<PageTitle>Library</PageTitle>
+
+<div class="library-page">
+
+    <!-- Header -->
+    <div class="library-header">
+
+        <div>
+            <h1>My Library</h1>
+            <p>Manage your books and track your reading progress.</p>
+        </div>
+
+        <button class="add-book-btn" @onclick="AddBook"> 
+            + Add Book
+        </button>
+
+    </div>
+
+    <!-- Books Grid -->
+    @if (books == null)
+    {
+        <div class="loading">
+            Loading books...
+        </div>
+    }
+    else if (books.Count == 0)
+    {
+        <div class="empty-library">
+            <h3>Your library is empty</h3>
+            <p>Start by adding your first book.</p>
+
+            <button class="add-book-btn" @onclick="AddBook">
+                + Add Book
+            </button>
+        </div>
+    }
+    else
+    {
+        <div class="books-container">
+
+            <table class="books-grid">
+
+                <thead>
+                    <tr>
+                        <th>Cover</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Category</th>
+                        <th>Progress</th>
+                        <th>Last Update</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var book in books)
+                    {
+                        <tr>
+
+                            <!-- Cover -->
+                            <td>
+                                <img class="book-cover"
+                                     src="@book.Cover"
+                                     alt="@book.Title" />
+                            </td>
+
+                            <!-- Title -->
+                            <td>
+                                <div class="book-title">
+                                    @book.Title
+                                </div>
+                            </td>
+
+                            <!-- Author -->
+                            <td>
+                                @(book.Author?.Name ?? "Unknown")
+                            </td>
+
+                            <!-- Category -->
+                            <td>
+                                <span class="category">
+                                    @(book.Category?.Name ?? "Unknown")
+                                </span>
+                            </td>
+
+                            <!-- Progress -->
+                            <td>
+
+                                @{
+                                    var progress = book.TotalPage > 0
+                                        ? (double)book.CurrentReadingPage / book.TotalPage * 100
+                                        : 0;
+                                }
+
+                                <div class="progress-container">
+
+                                    <div class="progress-bar">
+                                        <div class="progress-fill"
+                                             style="width:@progress%">
+                                        </div>
+                                    </div>
+
+                                    <span class="progress-text">
+                                        @book.CurrentReadingPage / @book.TotalPage
+                                    </span>
+
+                                </div>
+
+                            </td>
+
+                            <!-- Last Update -->
+                            <td>
+                                @book.LastUpdate.ToString("yyyy-MM-dd")
+                            </td>
+
+                            <!-- Actions -->
+                            <td>
+
+                                <div class="actions">
+
+                                    <button @onclick="()=>EditBook(book.ID)" class="edit-btn">
+                                        Edit
+                                    </button>
+
+                                    <button class="delete-btn">
+                                        Delete
+                                    </button>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+    }
+
+</div>

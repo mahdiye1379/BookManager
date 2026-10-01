@@ -1,5 +1,6 @@
-﻿using BookManager.Core.EfRepository;
+﻿
 using BookManager.Data;
+using BookManager.Data.Repository.EfRepository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookManager.Api.Controllers

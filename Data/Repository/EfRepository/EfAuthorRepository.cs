@@ -2,7 +2,7 @@
 using BookManager.Data.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookManager.Core.EfRepository
+namespace BookManager.Data.Repository.EfRepository
 {
     public class EfAuthorRepository
     {

@@ -1,9 +1,8 @@
 ﻿
-using BookManager.Core;
 using BookManager.Data.Model;
 using System.Net.Http.Json;
 
-namespace BookManager.Client.Repository.RestRepository
+namespace BookManager.Data.Repository.RestRepository
 {
     public class RestCategoryRepository
     {

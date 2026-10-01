@@ -1,5 +1,5 @@
-﻿using BookManager.Core.EfRepository;
-using BookManager.Data.Model;
+﻿using BookManager.Data.Model;
+using BookManager.Data.Repository.EfRepository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookManager.Api.Controllers
@@ -20,6 +20,14 @@ namespace BookManager.Api.Controllers
         {
             var ListBooks = await _efBookRepository.GetBooks();
             return Ok(ListBooks);
+        }
+
+        
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Find([FromRoute]Guid id)
+        {
+            var book = await _efBookRepository.GetOneBookFromServer(id);
+            return Ok(book);
         }
 
         [HttpPost]

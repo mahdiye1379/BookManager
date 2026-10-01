@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using BookManager.Data;
-using BookManager.Core.EfRepository;
+using BookManager.Data.Repository.EfRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
