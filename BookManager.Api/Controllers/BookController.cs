@@ -30,6 +30,15 @@ namespace BookManager.Api.Controllers
             return Ok(book);
         }
 
+      
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> Delete([FromRoute] Guid id)
+        //{
+        //    var result = await _efBookRepository.DeleteBook(id);
+        //    return Ok(result);
+        //}
+
+
         [HttpPost]
         public async Task<IActionResult> SendSaveRequest(Book book)
         {

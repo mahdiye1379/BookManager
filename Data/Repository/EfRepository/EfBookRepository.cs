@@ -7,6 +7,7 @@ namespace BookManager.Data.Repository.EfRepository
     public class EfBookRepository
     {
         private BookManager_DbContext _dbContext;
+        public string ResultMsg { set; get; }
 
         public EfBookRepository(BookManager_DbContext DbContext)
         {
@@ -27,6 +28,15 @@ namespace BookManager.Data.Repository.EfRepository
 
         }
 
+        //public async Task<string> DeleteBook(Guid Id)
+        //{
+        //   Book book = await GetOneBookFromServer(Id);
+
+        //    if(book is not null)
+        //        await _dbContext.Books.RemoveAsync(Id);
+        //        return ResultMsg = "با موفقیت حذف شد";
+
+        //}
 
         public async Task<(bool, string)> Save(Book book)
         {
