@@ -28,15 +28,37 @@ namespace BookManager.Data.Repository.EfRepository
 
         }
 
-        //public async Task<string> DeleteBook(Guid Id)
-        //{
-        //   Book book = await GetOneBookFromServer(Id);
+        public async Task<(string,bool)> DeleteBook(Guid Id)
+        {
+            Book? book = await GetOneBookFromServer(Id);
 
-        //    if(book is not null)
-        //        await _dbContext.Books.RemoveAsync(Id);
-        //        return ResultMsg = "با موفقیت حذف شد";
+            if (book is not null)
+            {
+                try
+                {
 
-        //}
+                    _dbContext.Books.Remove(book);
+                    await _dbContext.SaveChangesAsync();
+                    return ("با موفقیت حذف شد",true);
+
+                }
+                catch (Exception ex)
+                {
+
+#if DEBUG
+                    Exception exi = ex.InnerException;
+                    return (exi is not null ? exi.Message : ex.Message,false);
+#else
+                    return ("خطای در حذف کتاب بوجود امده است",false);
+#endif
+                }
+            }
+            else
+            {
+                return ("کتابی موجود نیست",false);
+            }
+
+        }
 
         public async Task<(bool, string)> Save(Book book)
         {

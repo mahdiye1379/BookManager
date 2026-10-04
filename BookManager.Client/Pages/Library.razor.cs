@@ -22,20 +22,23 @@ namespace BookManager.Client.Pages
             books = books.OrderByDescending(x => x.LastUpdate).ToList();
         }
 
-        private void AddBook()
+        private async Task AddBookAsync()
         {
             Navigation.NavigateTo("/book/add");
+            await LoadBooks();
         }
 
-        private void EditBook(Guid? id)
+        private async Task EditBookAsync(Guid? id)
         {
             Navigation.NavigateTo($"/book/edit/{id}");
+            await LoadBooks();
         }
 
-        //private async Task DeleteBook(Guid Id)
-        //{
-        //    var msg = await restBookRepository.DeleteBook(Id);
-        //    DeleteMessage = msg;
-        //}
+        private async Task DeleteBook(Guid? Id)
+        {
+            var msg = await restBookRepository.SendRemoveBook(Id);
+            DeleteMessage = msg;
+            await LoadBooks();
+        }
     }
 }

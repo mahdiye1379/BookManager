@@ -13,6 +13,7 @@ builder.Services.AddDbContext<BookManager_DbContext>(option=>option.UseSqlServer
 builder.Services.AddScoped<EfAuthorRepository>();
 builder.Services.AddScoped<EfCategoryRepository>();
 builder.Services.AddScoped<EfBookRepository>();
+builder.Services.AddScoped<EfUserRepository>();
 
 builder.Services.AddCors(options =>
 {

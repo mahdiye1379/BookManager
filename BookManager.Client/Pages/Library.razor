@@ -12,9 +12,10 @@
         <div>
             <h1>My Library</h1>
             <p>Manage your books and track your reading progress.</p>
+            <h3 style="color:rebeccapurple">@DeleteMessage</h3>
         </div>
 
-        <button class="add-book-btn" @onclick="AddBook"> 
+        <button class="add-book-btn" @onclick="AddBookAsync"> 
             + Add Book
         </button>
 
@@ -33,7 +34,7 @@
             <h3>Your library is empty</h3>
             <p>Start by adding your first book.</p>
 
-            <button class="add-book-btn" @onclick="AddBook">
+            <button class="add-book-btn" @onclick="AddBookAsync">
                 + Add Book
             </button>
         </div>
@@ -123,11 +124,11 @@
 
                                 <div class="actions">
 
-                                    <button @onclick="()=>EditBook(book.ID)" class="edit-btn">
+                                    <button @onclick="()=>EditBookAsync(book.ID)" class="edit-btn">
                                         Edit
                                     </button>
 
-                                    <button @* @onclick="() => DeleteBook(book.ID)" *@ class="delete-btn">
+                                    <button @onclick="() => DeleteBook(book.ID)" class="delete-btn">
                                         Delete
                                     </button>
 
