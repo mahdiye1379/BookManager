@@ -7,6 +7,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveWebAssemblyComponents();
 
+builder.Services.AddRazorComponents()
+    .AddInteractiveServerComponents();
+
+// Register authorization services
+builder.Services.AddAuthorization();
+builder.Services.AddCascadingAuthenticationState();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

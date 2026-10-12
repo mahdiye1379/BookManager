@@ -20,7 +20,7 @@ namespace BookManager.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Save(RegisterDTO registerDTO)
         {
-            (string Message,bool Status) result = await _efUserRepository.Save(registerDTO);
+            (string Message, bool Status) result = await _efUserRepository.Save(registerDTO);
 
             if (result.Status is true)
             {
@@ -33,5 +33,16 @@ namespace BookManager.Api.Controllers
 
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginDto loginDTO)
+        {
+            (bool State, string Message) result = await _efUserRepository.Login(loginDTO);
+
+            if (result.State == true)
+            {
+                return Ok(result.Message);
+            }
+            return BadRequest(result.Message);
+        }
     }
 }

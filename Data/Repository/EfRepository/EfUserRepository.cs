@@ -1,5 +1,6 @@
 ﻿using BookManager.Data.DTO;
 using BookManager.Data.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookManager.Data.Repository.EfRepository
 {
@@ -9,6 +10,16 @@ namespace BookManager.Data.Repository.EfRepository
         public EfUserRepository(BookManager_DbContext dbContext)
         {
             _dbContext = dbContext;
+        }
+
+        public async Task<(bool, string)> Login(LoginDto loginDto)
+        {
+            User? user = await _dbContext.Users.FirstOrDefaultAsync(x => x.UserName == loginDto.UserName && x.Password == loginDto.Password);
+            if (user is null)
+            {
+                return (false, "اطلاعات ورود درست نیست");
+            }
+            return (true, ",وارد شدید");
         }
 
         public async Task<(string,bool)> Save(RegisterDTO registerDTO)

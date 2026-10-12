@@ -1,0 +1,58 @@
+﻿@page "/login"
+@using Microsoft.AspNetCore.Components.Forms
+@inject NavigationManager Navigation
+
+<div class="login-page">
+    <div class="login-card">
+
+        <div class="login-header">
+            <h2>Welcome Back</h2>
+            <p>Login to your BookManager account</p>
+        </div>
+
+        <EditForm Model="@loginDto" OnValidSubmit="@LoginUser">
+            <DataAnnotationsValidator />
+
+            <div class="form-group">
+                <label>Username</label>
+
+                <InputText @bind-Value="loginDto.UserName"
+                           class="form-control"/>
+
+                <ValidationMessage For="@(() => loginDto.UserName)" />
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+
+                <InputText @bind-Value="loginDto.Password"
+                           type="password"
+                           class="form-control"/>
+
+                <ValidationMessage For="@(() => loginDto.Password)" />
+            </div>
+
+            @if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <div class="error-message">
+                    @errorMessage
+                </div>
+            }
+
+       
+            <button type="submit"
+                    class="login-button"
+                    disabled="@isLoading">
+
+                @(isLoading ? "Logging in..." : "Login")
+
+            </button>
+        </EditForm>
+
+        <div class="register-link">
+            Don't have an account?
+            <a href="/register">Register</a>
+        </div>
+
+    </div>
+</div>

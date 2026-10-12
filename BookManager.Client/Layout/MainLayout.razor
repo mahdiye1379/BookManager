@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@using Microsoft.AspNetCore.Components.Authorization
 
 <div class="page">
     <div class="sidebar">
@@ -6,13 +7,45 @@
     </div>
 
     <main>
-        <div style="border:1px solid gray;padding:8px">
-            <NavLink class="nav-link" href="/Register">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true" style="color:purple"></span> Register
-            </NavLink>
-        </div>
-     
+        <!-- Top Navigation -->
+        <header class="top-bar">
+            <div class="top-bar-brand">
+                <span class="bi bi-book-half"></span>
+                <span>BookManager</span>
+            </div>
 
+            <nav class="auth-navigation" aria-label="Account navigation">
+                <AuthorizeView>
+
+                    <NotAuthorized>
+                        <NavLink class="auth-link login-link"
+                                 href="/Login">
+                            <span class="bi bi-box-arrow-in-right"
+                                  aria-hidden="true"></span>
+                            <span>Login</span>
+                        </NavLink>
+
+                        <NavLink class="auth-link register-link"
+                                 href="/Register">
+                            <span class="bi bi-person-plus-fill"
+                                  aria-hidden="true"></span>
+                            <span>Register</span>
+                        </NavLink>
+                    </NotAuthorized>
+
+                    <Authorized>
+                        <NavLink class="auth-link register-link"
+                                 href="/UserPanel">
+                            <span class="bi bi-person-plus-fill"
+                                  aria-hidden="true"></span>
+                            <span>User Panel</span>
+                        </NavLink>
+                    </Authorized>
+                </AuthorizeView>
+            </nav>
+        </header>
+
+        <!-- Page Content -->
         <article class="content px-4">
             @Body
         </article>
