@@ -1,11 +1,12 @@
 ﻿
-using BookManager.Data.Model;
+using BookManager.Application.Interface;
+using BookManager.Domain.Model;
 using System.Net;
 using System.Net.Http.Json;
 
-namespace BookManager.Data.Repository.RestRepository
+namespace BookManager.Infrastructure.Repository.RestRepository
 {
-    public class RestBookRepository
+    public class RestBookRepository : IBookRepository
     {
         HttpClient Client = new HttpClient();
 
@@ -14,7 +15,7 @@ namespace BookManager.Data.Repository.RestRepository
             Client.BaseAddress = new Uri(Config.ApiBaseUrl);
         }
 
-        public async Task<List<Book>?> GetBook()
+        public async Task<List<Book>?> GetAll()
         {
            
             HttpResponseMessage result = await Client.GetAsync("Book/Get");
@@ -24,7 +25,7 @@ namespace BookManager.Data.Repository.RestRepository
             return Books;
         }
 
-        public async Task<Book?> SendGetBookRequest(Guid? id)
+        public async Task<Book?> GetOne(Guid id)
         {
       
             HttpResponseMessage result = await Client.GetAsync($"Book/Find/{id}");
@@ -34,13 +35,19 @@ namespace BookManager.Data.Repository.RestRepository
             return book;
         }
 
-        public async Task<string> SendRemoveBook(Guid? id)
+        public async Task<(string,bool)> Delete(Guid? id)
         {
             HttpResponseMessage result = await Client.DeleteAsync($"Book/Delete/{id}");
-            return await result.Content.ReadAsStringAsync();
+            string msg = await result.Content.ReadAsStringAsync();
+
+            if (result.StatusCode == HttpStatusCode.OK)
+            {
+                return (msg,true);
+            }
+            return (msg,false);
         }
 
-        public async Task<(bool,string)> SendSave(Book book)
+        public async Task<(bool,string)> Save(Book book)
         {
             HttpResponseMessage result = await Client.PostAsJsonAsync<Book>("Book/SendSaveRequest", book);
 

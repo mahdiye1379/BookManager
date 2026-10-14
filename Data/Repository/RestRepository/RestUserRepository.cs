@@ -1,10 +1,11 @@
-﻿using BookManager.Data.DTO;
+﻿using BookManager.Domain.DTO;
+using BookManager.Application.Interface;
 using System.Net;
 using System.Net.Http.Json;
 
-namespace BookManager.Data.Repository.RestRepository
+namespace BookManager.Infrastructure.Repository.RestRepository
 {
-    public class RestUserRepository
+    public class RestUserRepository : IUserRepository
     {
         HttpClient client = new HttpClient();
 
@@ -13,7 +14,7 @@ namespace BookManager.Data.Repository.RestRepository
             client.BaseAddress = new Uri(Config.ApiBaseUrl);
         }
 
-        public async Task<(bool, string)> SendLoginRequest(LoginDto loginDto)
+        public async Task<(bool, string)> Login(LoginDto loginDto)
         {
             HttpResponseMessage httpMessage = await client.PostAsJsonAsync("User/Login",loginDto);
             string Message = await httpMessage.Content.ReadAsStringAsync();
@@ -25,10 +26,15 @@ namespace BookManager.Data.Repository.RestRepository
             return (false, Message);
         }
 
-        public async Task<string> SendSaveRegister(RegisterDTO registerDTO)
+        public async Task<(string,bool)> Register(RegisterDTO registerDTO)
         {
             HttpResponseMessage responseMessage = await client.PostAsJsonAsync("User/Save", registerDTO);
-            return await responseMessage.Content.ReadAsStringAsync();
+            string msg = await responseMessage.Content.ReadAsStringAsync();
+            if (responseMessage.StatusCode == HttpStatusCode.OK)
+            {
+                return (msg , true);
+            }
+            return (msg, false);
         }
 
     }

@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-namespace BookManager.Data.DTO
+namespace BookManager.Domain.DTO
 {
     public class RegisterDTO
     {

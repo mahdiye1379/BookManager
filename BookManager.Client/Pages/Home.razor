@@ -1,6 +1,7 @@
 ﻿@page "/"
-@using BookManager.Data.Model
-
+@using BookManager.Domain.Model
+@using BookManager.Application.Interface
+@inject IBookRepository bookRepository
 <PageTitle>My Library</PageTitle>
 
 <div class="library-page">

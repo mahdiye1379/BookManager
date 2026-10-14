@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BookManager.Core\BookManager.Core.csproj" />
+    <ProjectReference Include="..\Data\BookManager.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

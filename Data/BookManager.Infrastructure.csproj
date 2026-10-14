@@ -15,4 +15,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BookManager.Application\BookManager.Application.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,10 +1,6 @@
-﻿
-using BookManager.Data.Model;
-using BookManager.Data.Repository.RestRepository;
+﻿using BookManager.Domain.Model;
 using Microsoft.AspNetCore.Components;
-using System.Net.Http.Json;
-using InjectAttribute = Microsoft.AspNetCore.Components.InjectAttribute;
-                
+
 namespace BookManager.Client.Pages
 {
     public partial class Home : ComponentBase
@@ -15,11 +11,9 @@ namespace BookManager.Client.Pages
         [Inject]
         private NavigationManager Navigation { get; set; } = default;
 
-      RestBookRepository restBookRepository = new RestBookRepository();
-
         protected override async Task OnInitializedAsync()
         {
-            Books = await restBookRepository.GetBook();
+            Books = await bookRepository.GetAll();
         }
 
  

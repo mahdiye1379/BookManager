@@ -1,10 +1,11 @@
-﻿using BookManager.Data.DTO;
-using BookManager.Data.Model;
+﻿using BookManager.Domain.DTO;
+using BookManager.Application.Interface;
+using BookManager.Domain.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookManager.Data.Repository.EfRepository
+namespace BookManager.Infrastructure.Repository.EfRepository
 {
-    public class EfUserRepository
+    public class EfUserRepository : IUserRepository
     {
         BookManager_DbContext _dbContext;
         public EfUserRepository(BookManager_DbContext dbContext)
@@ -22,7 +23,7 @@ namespace BookManager.Data.Repository.EfRepository
             return (true, ",وارد شدید");
         }
 
-        public async Task<(string,bool)> Save(RegisterDTO registerDTO)
+        public async Task<(string,bool)> Register(RegisterDTO registerDTO)
         {
             string RegisterMsg = "";
             bool IsFresh = false;
@@ -68,7 +69,7 @@ namespace BookManager.Data.Repository.EfRepository
 
                 _dbContext.Users.Add(user);
                 await _dbContext.SaveChangesAsync();
-                return ("کاربر با موفقیت اضافه شد",false);
+                return ("کاربر با موفقیت اضافه شد",true);
 
             }
             catch (Exception ex) 

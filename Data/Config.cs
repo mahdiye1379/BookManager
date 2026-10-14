@@ -1,4 +1,4 @@
-﻿namespace BookManager.Data
+﻿namespace BookManager.Infrastructure
 {
     public class Config
     {

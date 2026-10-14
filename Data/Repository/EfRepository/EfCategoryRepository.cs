@@ -1,11 +1,10 @@
-﻿
-using BookManager.Data;
-using BookManager.Data.Model;
+﻿using BookManager.Application.Interface;
+using BookManager.Domain.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookManager.Data.Repository.EfRepository
+namespace BookManager.Infrastructure.Repository.EfRepository
 {
-    public class EfCategoryRepository
+    public class EfCategoryRepository : ICategoryRepository
     {
         private BookManager_DbContext _dbContext;
 
@@ -14,8 +13,8 @@ namespace BookManager.Data.Repository.EfRepository
             _dbContext = DbContext;
         }
 
-        public async Task<List<Category>> GetCategory() {
-            List<Category> categories = await _dbContext.Categories.ToListAsync();
+        public async Task<List<Category>?> GetAll() {
+            List<Category>? categories = await _dbContext.Categories.ToListAsync();
             return categories;
         }
     }

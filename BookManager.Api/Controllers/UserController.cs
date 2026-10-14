@@ -1,7 +1,6 @@
-﻿using BookManager.Data.DTO;
-using BookManager.Data.Repository.EfRepository;
+﻿using BookManager.Application.Interface;
+using BookManager.Domain.DTO;
 using Microsoft.AspNetCore.Mvc;
-using System.Net.NetworkInformation;
 
 namespace BookManager.Api.Controllers
 {
@@ -9,18 +8,18 @@ namespace BookManager.Api.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        EfUserRepository _efUserRepository;
+        IUserRepository _userRepository;
 
-        public UserController(EfUserRepository efUserRepository)
+        public UserController(IUserRepository userRepository)
         {
-            _efUserRepository = efUserRepository;
+            _userRepository = userRepository;
         }
 
 
         [HttpPost]
         public async Task<IActionResult> Save(RegisterDTO registerDTO)
         {
-            (string Message, bool Status) result = await _efUserRepository.Save(registerDTO);
+            (string Message, bool Status) result = await _userRepository.Register(registerDTO);
 
             if (result.Status is true)
             {
@@ -36,7 +35,7 @@ namespace BookManager.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginDto loginDTO)
         {
-            (bool State, string Message) result = await _efUserRepository.Login(loginDTO);
+            (bool State, string Message) result = await _userRepository.Login(loginDTO);
 
             if (result.State == true)
             {

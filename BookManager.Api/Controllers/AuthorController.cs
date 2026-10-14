@@ -1,6 +1,4 @@
-﻿
-using BookManager.Data;
-using BookManager.Data.Repository.EfRepository;
+﻿using BookManager.Application.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookManager.Api.Controllers
@@ -9,16 +7,16 @@ namespace BookManager.Api.Controllers
     [ApiController]
     public class AuthorController : ControllerBase
     {
-        EfAuthorRepository efAuthorRepository;
-        public AuthorController(BookManager_DbContext dbContext)
+        IAuthorRepository _authorRepository;
+        public AuthorController(IAuthorRepository authorRepository)
         {
-            efAuthorRepository = new EfAuthorRepository(dbContext);
+            _authorRepository = authorRepository;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var ListAuthor = await efAuthorRepository.GetAuthors();
+            var ListAuthor = await _authorRepository.GetAuthors();
             return Ok(ListAuthor);
 
         }

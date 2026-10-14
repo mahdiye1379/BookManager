@@ -1,10 +1,11 @@
 ﻿
-using BookManager.Data.Model;
+using BookManager.Application.Interface;
+using BookManager.Domain.Model;
 using System.Net.Http.Json;
 
-namespace BookManager.Data.Repository.RestRepository
+namespace BookManager.Infrastructure.Repository.RestRepository
 {
-    public class RestCategoryRepository
+    public class RestCategoryRepository : ICategoryRepository
     {
         HttpClient http = new HttpClient();
 
@@ -13,7 +14,7 @@ namespace BookManager.Data.Repository.RestRepository
             http.BaseAddress = new Uri(Config.ApiBaseUrl);
         }
 
-        public async Task<List<Category>?> GetCategory()
+        public async Task<List<Category>?> GetAll()
         {
             HttpResponseMessage result = await http.GetAsync("Category/Get");
             List<Category>? Categories = await result.Content.ReadFromJsonAsync<List<Category>>();

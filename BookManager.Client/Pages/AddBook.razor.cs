@@ -1,5 +1,4 @@
-﻿using BookManager.Data.Model;
-using BookManager.Data.Repository.RestRepository;
+﻿using BookManager.Domain.Model;
 using Microsoft.AspNetCore.Components;
 
 namespace BookManager.Client.Pages
@@ -19,19 +18,14 @@ namespace BookManager.Client.Pages
 
         public List<Category>? Categories { get; set; } = new();
 
-        RestAuthorRepository restAuthorRepository = new RestAuthorRepository();
-        RestCategoryRepository restCategoryRepository = new RestCategoryRepository();
-        RestBookRepository restBookRepository = new RestBookRepository();
-
-
         protected override async Task OnInitializedAsync()
         {
-            Authors = await restAuthorRepository.GetAuthor();
-            Categories = await restCategoryRepository.GetCategory();
+            Authors = await authorRepository.GetAuthors();
+            Categories = await categoryRepository.GetAll ();
 
             if(IsEdit is true)
             {
-               Book? ServerBook = await restBookRepository.SendGetBookRequest(id);
+               Book? ServerBook = await bookRepository.GetOne(id.Value);
 
                 UiBook.AuthorId = ServerBook.AuthorId;
                 UiBook.Summery = ServerBook.Summery;
@@ -51,7 +45,7 @@ namespace BookManager.Client.Pages
         private async Task SaveForm()
         {
             UiBook.LastUpdate = DateTime.Now;
-           (bool status,string message) result = await restBookRepository.SendSave(UiBook);
+           (bool status,string message) result = await bookRepository.Save(UiBook);
 
             if(result.status is true)
             {

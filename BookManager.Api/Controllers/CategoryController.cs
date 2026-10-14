@@ -1,6 +1,4 @@
-﻿
-using BookManager.Data;
-using BookManager.Data.Repository.EfRepository;
+﻿using BookManager.Application.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookManager.Api.Controllers
@@ -9,16 +7,16 @@ namespace BookManager.Api.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        EfCategoryRepository efCategoryRepository;
-        public CategoryController(BookManager_DbContext dbContext)
+        ICategoryRepository _categoryRepository;
+        public CategoryController(ICategoryRepository categoryRepository)
         {
-            efCategoryRepository = new EfCategoryRepository(dbContext);
+            _categoryRepository = categoryRepository;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var ListCategory = await efCategoryRepository.GetCategory();
+            var ListCategory = await _categoryRepository.GetAll();
             return Ok(ListCategory);
 
         }

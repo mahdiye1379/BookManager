@@ -1,5 +1,6 @@
-﻿using BookManager.Data.Model;
-using BookManager.Data.Repository.EfRepository;
+﻿
+using BookManager.Application.Interface;
+using BookManager.Domain.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookManager.Api.Controllers
@@ -8,17 +9,17 @@ namespace BookManager.Api.Controllers
     [ApiController]
     public class BookController : ControllerBase
     {
-        EfBookRepository _efBookRepository;
+        IBookRepository _bookRepository;
 
-        public BookController(EfBookRepository efBookRepository)
+        public BookController(IBookRepository bookRepository)
         {
-            _efBookRepository = efBookRepository;
+            _bookRepository = bookRepository;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var ListBooks = await _efBookRepository.GetBooks();
+            var ListBooks = await _bookRepository.GetAll();
             return Ok(ListBooks);
         }
 
@@ -26,7 +27,7 @@ namespace BookManager.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Find([FromRoute]Guid id)
         {
-            var book = await _efBookRepository.GetOneBookFromServer(id);
+            var book = await _bookRepository.GetOne(id);
             return Ok(book);
         }
 
@@ -34,7 +35,7 @@ namespace BookManager.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
-            (string Message, bool State) result = await _efBookRepository.DeleteBook(id);
+            (string Message, bool State) result = await _bookRepository.Delete(id);
             if(result.State == true)
             {
                 return Ok(result.Message);
@@ -49,7 +50,7 @@ namespace BookManager.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> SendSaveRequest(Book book)
         {
-            (bool status,string message) result = await _efBookRepository.Save(book);
+            (bool status,string message) result = await _bookRepository.Save(book);
 
             if (result.status is true)
             {

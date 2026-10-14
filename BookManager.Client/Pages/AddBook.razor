@@ -1,7 +1,9 @@
 ﻿@page "/book/add/"
 @page "/book/edit/{id:guid}"
-
-@using BookManager.Data.Model
+@using BookManager.Application.Interface
+@inject IBookRepository bookRepository
+@inject IAuthorRepository authorRepository
+@inject ICategoryRepository categoryRepository
 @inject NavigationManager Navigation
 
 <PageTitle>Add Book</PageTitle>

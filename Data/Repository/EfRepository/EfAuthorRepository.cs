@@ -1,10 +1,10 @@
-﻿using BookManager.Data;
-using BookManager.Data.Model;
+﻿using BookManager.Application.Interface;
+using BookManager.Domain.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookManager.Data.Repository.EfRepository
+namespace BookManager.Infrastructure.Repository.EfRepository
 {
-    public class EfAuthorRepository
+    public class EfAuthorRepository : IAuthorRepository
     {
         private BookManager_DbContext _dbContext;
 
@@ -13,7 +13,7 @@ namespace BookManager.Data.Repository.EfRepository
             _dbContext = dbContext;
         }
 
-        public async Task<List<Author>> GetAuthors()
+        public async Task<List<Author?>> GetAuthors()
         {
             List<Author> authors = await _dbContext.Authors.ToListAsync();
             return authors;

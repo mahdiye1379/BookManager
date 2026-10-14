@@ -1,6 +1,10 @@
 ﻿@page "/login"
+@using BookManager.Application.Interface
+@using BookManager.Client.Authentication
 @using Microsoft.AspNetCore.Components.Forms
 @inject NavigationManager Navigation
+@inject CustomAuthStatProvider AuthProvider
+@inject IUserRepository userRepository;
 
 <div class="login-page">
     <div class="login-card">

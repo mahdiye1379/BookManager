@@ -1,26 +1,27 @@
-﻿using BookManager.Data;
-using BookManager.Data.Model;
+﻿using BookManager.Application.Interface;
+using BookManager.Domain.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookManager.Data.Repository.EfRepository
+namespace BookManager.Infrastructure.Repository.EfRepository
 {
-    public class EfBookRepository
+    public class EfBookRepository : IBookRepository
     {
-        private BookManager_DbContext _dbContext;
         public string ResultMsg { set; get; }
+
+        private BookManager_DbContext _dbContext;
 
         public EfBookRepository(BookManager_DbContext DbContext)
         {
             _dbContext = DbContext;
         }
 
-        public async Task<List<Book>> GetBooks(){
+        public async Task<List<Book>?> GetAll(){
 
             List<Book> Books = await _dbContext.Books.ToListAsync();
             return Books;
 
         }
-        public async Task<Book?> GetOneBookFromServer(Guid id)
+        public async Task<Book?> GetOne(Guid id)
         {
 
             Book? book = await _dbContext.Books.AsNoTracking().FirstOrDefaultAsync(x=>x.ID == id);
@@ -28,9 +29,9 @@ namespace BookManager.Data.Repository.EfRepository
 
         }
 
-        public async Task<(string,bool)> DeleteBook(Guid Id)
+        public async Task<(string,bool)> Delete(Guid? Id)
         {
-            Book? book = await GetOneBookFromServer(Id);
+            Book? book = await GetOne(Id.Value);
 
             if (book is not null)
             {
@@ -64,7 +65,7 @@ namespace BookManager.Data.Repository.EfRepository
         {
             try
             {
-               Book? DbBook = await GetOneBookFromServer(book.ID);
+               Book? DbBook = await GetOne(book.ID);
 
                 if (DbBook is null)
                 {

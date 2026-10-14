@@ -1,9 +1,10 @@
-﻿using BookManager.Data.Model;
+﻿using BookManager.Application.Interface;
+using BookManager.Domain.Model;
 using System.Net.Http.Json;
 
-namespace BookManager.Data.Repository.RestRepository
+namespace BookManager.Infrastructure.Repository.RestRepository
 {
-    public class RestAuthorRepository
+    public class RestAuthorRepository : IAuthorRepository
     {
         HttpClient http = new HttpClient();
 
@@ -12,7 +13,7 @@ namespace BookManager.Data.Repository.RestRepository
             http.BaseAddress = new Uri(Config.ApiBaseUrl);
         }
 
-        public async Task<List<Author>?> GetAuthor()
+        public async Task<List<Author>?> GetAuthors()
         {
             HttpResponseMessage result = await http.GetAsync("Author/Get");
             List<Author>? Authors = await result.Content.ReadFromJsonAsync<List<Author>>();

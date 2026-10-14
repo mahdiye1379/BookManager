@@ -1,5 +1,4 @@
-﻿using BookManager.Data.Model;
-using BookManager.Data.Repository.RestRepository;
+﻿using BookManager.Domain.Model;
 using Microsoft.AspNetCore.Components;
 
 namespace BookManager.Client.Pages
@@ -9,7 +8,6 @@ namespace BookManager.Client.Pages
         public Guid Id { get; set; }
         private List<Book>? books;
         public string DeleteMessage { get; set; }
-        RestBookRepository restBookRepository = new RestBookRepository();
 
         protected override async Task OnInitializedAsync()
         {
@@ -18,7 +16,7 @@ namespace BookManager.Client.Pages
 
         private async Task LoadBooks()
         {
-            books = await restBookRepository.GetBook();
+            books = await bookRepository.GetAll();
             books = books.OrderByDescending(x => x.LastUpdate).ToList();
         }
 
@@ -36,7 +34,7 @@ namespace BookManager.Client.Pages
 
         private async Task DeleteBook(Guid? Id)
         {
-            var msg = await restBookRepository.SendRemoveBook(Id);
+            (string msg, bool state) = await bookRepository.Delete(Id);
             DeleteMessage = msg;
             await LoadBooks();
         }
