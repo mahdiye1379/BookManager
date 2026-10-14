@@ -38,6 +38,8 @@
             @foreach (Book item in Books)
             {
                 <div class="book-card">
+                
+                    <a href="/book/details/@item.ID" style="text-decoration:none;">
 
                     <div class="book-cover">
                         <div class="book-icon">📖</div>
@@ -54,6 +56,8 @@
                             <span class="book-status">In Library</span>
                         </div>
                     </div>
+
+                    </a>
 
                 </div>
             }

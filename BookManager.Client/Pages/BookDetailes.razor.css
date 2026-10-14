@@ -1,0 +1,466 @@
+﻿
+.book-details-page {
+    --accent: #6c4bb8;
+    --accent-dark: #50358f;
+    --ink: #202238;
+    --muted: #777c8f;
+    --line: #e8e8ef;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 30px 28px 70px;
+    color: var(--ink);
+}
+
+.breadcrumb-nav {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 32px;
+}
+
+    .breadcrumb-nav a {
+        color: var(--muted);
+        text-decoration: none;
+    }
+
+        .breadcrumb-nav a:hover {
+            color: var(--accent);
+        }
+
+    .breadcrumb-nav strong {
+        color: var(--ink);
+        font-weight: 600;
+    }
+
+/* HERO */
+
+.book-hero {
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+    gap: 56px;
+    padding: 42px;
+    background: linear-gradient( 135deg, #f6f2ff 0%, #ffffff 65%);
+    border: 1px solid #eeebf5;
+    border-radius: 24px;
+}
+
+.cover-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.cover-frame {
+    width: 100%;
+    max-width: 270px;
+    aspect-ratio: 2 / 3;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #e9e5f2;
+    box-shadow: 12px 18px 35px rgba(40, 28, 75, .18);
+    transform: rotate(-1deg);
+}
+
+    .cover-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+.availability {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #44886a;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.availability-dot {
+    width: 8px;
+    height: 8px;
+    background: #42aa78;
+    border-radius: 50%;
+}
+
+.book-main-info {
+    min-width: 0;
+}
+
+.eyebrow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.category-pill,
+.format-pill {
+    padding: 7px 12px;
+    border-radius: 7px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .4px;
+}
+
+.category-pill {
+    color: var(--accent);
+    background: #ebe3fc;
+}
+
+.format-pill {
+    color: #72778b;
+    background: #eef0f5;
+}
+
+.book-main-info h1 {
+    font-size: clamp(28px, 3vw, 43px);
+    font-weight: 800;
+    letter-spacing: -1.2px;
+    line-height: 1.2;
+    margin: 0 0 12px;
+}
+
+.author-line {
+    color: var(--muted);
+    font-size: 16px;
+    margin-bottom: 28px;
+}
+
+    .author-line strong {
+        color: var(--accent);
+    }
+
+.metadata-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    padding: 20px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
+
+    .metadata-row > div {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        padding: 0 25px;
+        border-right: 1px solid var(--line);
+    }
+
+        .metadata-row > div:first-child {
+            padding-left: 0;
+        }
+
+        .metadata-row > div:last-child {
+            border-right: none;
+        }
+
+.metadata-label {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.metadata-row strong {
+    font-size: 14px;
+}
+
+.description-block {
+    margin-top: 26px;
+}
+
+    .description-block h3 {
+        font-size: 17px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .description-block p {
+        color: #666b7d;
+        font-size: 14px;
+        line-height: 1.9;
+        white-space: pre-line;
+    }
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.primary-btn,
+.secondary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 13px 23px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: .2s ease;
+}
+
+.primary-btn {
+    background: var(--accent);
+    color: #fff;
+}
+
+    .primary-btn:hover {
+        background: var(--accent-dark);
+        color: #fff;
+        transform: translateY(-2px);
+    }
+
+.secondary-btn {
+    background: #fff;
+    color: var(--ink);
+    border: 1px solid #dcdce8;
+}
+
+    .secondary-btn:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+    }
+
+.unavailable-label {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+/* READING PROGRESS */
+
+.reading-dashboard {
+    margin-top: 28px;
+    padding: 28px 32px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+}
+
+.dashboard-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 22px;
+}
+
+.section-kicker {
+    color: var(--accent);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    font-weight: 800;
+}
+
+.dashboard-heading h2,
+.reader-heading h2 {
+    font-size: 23px;
+    font-weight: 750;
+    margin: 7px 0 0;
+}
+
+.progress-percent {
+    color: var(--accent);
+    font-size: 25px;
+}
+
+.reading-track {
+    height: 9px;
+    border-radius: 20px;
+    background: #efedf5;
+    overflow: hidden;
+}
+
+.reading-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #8966d6, #6142aa);
+    border-radius: 20px;
+}
+
+.progress-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 13px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* PDF READER */
+
+.reader-section {
+    margin-top: 55px;
+    scroll-margin-top: 25px;
+}
+
+.reader-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+    .reader-heading p {
+        color: var(--muted);
+        font-size: 14px;
+        margin: 10px 0 0;
+    }
+
+.reader-open-btn {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.reader-shell {
+    overflow: hidden;
+    border-radius: 17px;
+    border: 1px solid #e1e1ea;
+    background: #f2f2f6;
+    box-shadow: 0 12px 40px rgba(30, 30, 50, .06);
+}
+
+.reader-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 22px;
+    background: #252638;
+    color: #fff;
+}
+
+.reader-document {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.pdf-icon {
+    background: #db5a68;
+    color: white;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 7px;
+    border-radius: 5px;
+}
+
+.reader-filename {
+    font-size: 13px;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.reader-status {
+    color: #aaaaba;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.pdf-frame {
+    display: block;
+    width: 100%;
+    height: 820px;
+    border: 0;
+    background: #f2f2f6;
+}
+
+.reader-empty {
+    padding: 110px 20px;
+    text-align: center;
+    color: var(--muted);
+}
+
+/* FOOTER */
+
+.book-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-top: 48px;
+    padding: 28px 0;
+    border-top: 1px solid var(--line);
+}
+
+    .book-footer h3 {
+        font-size: 20px;
+        font-weight: 750;
+    }
+
+    .book-footer p {
+        color: var(--muted);
+        font-size: 13px;
+    }
+
+.state-panel {
+    padding: 100px 20px;
+    text-align: center;
+}
+
+    .state-panel p {
+        color: var(--muted);
+        margin: 16px 0;
+    }
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+    .book-hero {
+        grid-template-columns: 220px minmax(0, 1fr);
+        gap: 28px;
+        padding: 28px;
+    }
+}
+
+@media (max-width: 650px) {
+    .book-details-page {
+        padding: 20px 14px 50px;
+    }
+
+    .book-hero {
+        grid-template-columns: 1fr;
+        padding: 25px 20px;
+    }
+
+    .cover-frame {
+        max-width: 200px;
+    }
+
+    .metadata-row > div {
+        padding: 0 14px;
+    }
+
+    .book-main-info h1 {
+        font-size: 30px;
+    }
+
+    .reader-heading,
+    .book-footer {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .pdf-frame {
+        height: 580px;
+    }
+
+    .reader-status {
+        display: none;
+    }
+
+    .reading-dashboard {
+        padding: 22px 18px;
+    }
+}

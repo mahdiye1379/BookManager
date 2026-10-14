@@ -1,0 +1,186 @@
+﻿@page "/book/details/{Id:guid}"
+@using BookManager.Application.Interface
+@inject IBookRepository bookRepository
+@using BookManager.Domain.Model
+
+<PageTitle>@(book?.Title ?? "Book Details") | BookManager</PageTitle>
+
+<div class="book-details-page">
+
+    <nav class="breadcrumb-nav">
+        <a href="/">Home</a>
+        <span>/</span>
+        <a href="/library">Library</a>
+        <span>/</span>
+        <strong>@(book?.Title ?? "Book Details")</strong>
+    </nav>
+
+    @if (isLoading)
+    {
+        <div class="state-panel">
+            <div class="spinner-border text-primary"></div>
+            <p>Loading your book...</p>
+        </div>
+    }
+    else if (book is null)
+    {
+        <div class="state-panel">
+            <h2>Book unavailable</h2>
+            <p>@(errorMessage ?? "We couldn't find this book.")</p>
+            <a class="primary-btn" href="/library">
+                Back to Library
+            </a>
+        </div>
+    }
+    else
+    {
+        <section class="book-hero">
+
+            <div class="cover-column">
+                <div class="cover-frame">
+                    <img src="@book.Cover"
+                         alt="@book.Title" />
+                </div>
+                <div class="availability">
+                    <span class="availability-dot"></span>
+                    Available in Digital Library
+                </div>
+            </div>
+
+            <div class="book-main-info">
+                <div class="eyebrow">
+                    <span class="category-pill">
+                        @(book.Category?.Name ?? "General")
+                    </span>
+                    <span class="format-pill">DIGITAL EDITION</span>
+                </div>
+
+                <h1>@book.Title</h1>
+
+                <p class="author-line">
+                    By <strong>@(book.Author?.Name ?? "Unknown Author")</strong>
+                </p>
+
+                <div class="metadata-row">
+                    <div>
+                        <span class="metadata-label">Pages</span>
+                        <strong>@book.TotalPage</strong>
+                    </div>
+                    <div>
+                        <span class="metadata-label">Format</span>
+                        <strong>PDF</strong>
+                    </div>
+                    <div>
+                        <span class="metadata-label">Last updated</span>
+                        <strong>@book.LastUpdate.ToString("MMM dd, yyyy")</strong>
+                    </div>
+                </div>
+
+                <div class="description-block">
+                    <h3>About this book</h3>
+                    <p>
+                        @(string.IsNullOrWhiteSpace(book.Summery)
+                            ? "No description is available for this book."
+                            : book.Summery)
+                    </p>
+                </div>
+
+                <div class="hero-actions">
+                    @if (!string.IsNullOrWhiteSpace(book.FilePath))
+                    {
+                        <a href="#reader" class="primary-btn">
+                            <span>📖</span> Read Online
+                        </a>
+
+                        <a href="@book.FilePath"
+                           class="secondary-btn"
+                           download>
+                            <span>↓</span> Download PDF
+                        </a>
+                    }
+                    else
+                    {
+                        <span class="unavailable-label">
+                            PDF currently unavailable
+                        </span>
+                    }
+                </div>
+            </div>
+        </section>
+
+        <section class="reading-dashboard">
+            <div class="dashboard-heading">
+                <div>
+                    <span class="section-kicker">YOUR READING JOURNEY</span>
+                    <h2>Reading Progress</h2>
+                </div>
+                <strong class="progress-percent">@progressPercent%</strong>
+            </div>
+
+            <div class="reading-track">
+                <div class="reading-fill"
+                     style="width:@progressPercent%"></div>
+            </div>
+
+            <div class="progress-footer">
+                <span>Page @book.CurrentReadingPage of @book.TotalPage</span>
+                <span>@remainingPages pages remaining</span>
+            </div>
+        </section>
+
+        <section class="reader-section" id="reader">
+            <div class="reader-heading">
+                <div>
+                    <span class="section-kicker">DIGITAL READING ROOM</span>
+                    <h2>Read this book</h2>
+                    <p>Enjoy your book directly in your browser.</p>
+                </div>
+
+                @if (!string.IsNullOrWhiteSpace(book.FilePath))
+                {
+                    <a href="@book.FilePath"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="reader-open-btn">
+                        Open in New Tab ↗
+                    </a>
+                }
+            </div>
+
+            <div class="reader-shell">
+                <div class="reader-toolbar">
+                    <div class="reader-document">
+                        <span class="pdf-icon">PDF</span>
+                        <span class="reader-filename">@book.Title</span>
+                    </div>
+                    <span class="reader-status">BookManager Reader</span>
+                </div>
+
+                @if (!string.IsNullOrWhiteSpace(book.FilePath))
+                {
+                    <iframe class="pdf-frame"
+                            src="@book.FilePath"
+                            title="@($"Read {book.Title}")">
+                    </iframe>
+                }
+                else
+                {
+                    <div class="reader-empty">
+                        <h3>No preview available</h3>
+                        <p>This book doesn't have a PDF file yet.</p>
+                    </div>
+                }
+            </div>
+        </section>
+
+        <footer class="book-footer">
+            <div>
+                <h3>Keep discovering.</h3>
+                <p>Your next great read is waiting in the library.</p>
+            </div>
+            <a href="/library" class="secondary-btn">
+                ← Explore Library
+            </a>
+        </footer>
+    }
+</div>
