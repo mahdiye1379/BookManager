@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BookManager.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[Action]")]
     [ApiController]
     public class FilesController : ControllerBase
     {
@@ -13,23 +13,25 @@ namespace BookManager.Api.Controllers
             _envieronment = envieronment;
         }
 
-        [HttpPost("Update")]
+        [HttpPost]
         public async Task<IActionResult> Upload([FromForm]IFormFile form)
         {
             try
             {
                 string Serverhard_ApiFolder = _envieronment.ContentRootPath;
                 string FileName = Guid.NewGuid().ToString();
-                string FileAttechment = Path.GetExtension(form.FileName);
+                string FileExtension = Path.GetExtension(form.FileName);
 
+                // آدرس ذخیره فایل رو سرور
+                string FilePath = Path.Combine(Serverhard_ApiFolder,FileName + FileExtension);
 
-                string FilePath = Serverhard_ApiFolder + "/" + FileName + FileAttechment;
-
+                // ساخت فایل خالی در سرور
                 await using var EmptyFile = System.IO.File.Create(FilePath);
 
+                // قرار دادن محتوای فایل دریافتی در فایل ایجاد شده در سرور
                 await form.CopyToAsync(EmptyFile);
 
-                return Ok();
+                return Ok(FilePath);
             }
             catch (Exception ex)
             {

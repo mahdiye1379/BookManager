@@ -4,6 +4,7 @@
 @inject IBookRepository bookRepository
 @inject IAuthorRepository authorRepository
 @inject ICategoryRepository categoryRepository
+@inject IFileRepository FileRepository  
 @inject NavigationManager Navigation
 
 <PageTitle>Add Book</PageTitle>
@@ -182,23 +183,21 @@
 
                 <div class="form-grid">
 
-                    <!-- Cover -->
-                    <div class="form-group full-width">
-
-                        <label for="cover">
-                            Cover Image URL
-                        </label>
-
-                        <input id="cover"
-                               type="text"
+                    <!-- Cover Image -->
+                    <div class="file-input-row">
+                        <input type="text"
                                class="form-input"
-                               placeholder="https://example.com/book-cover.jpg"
+                               placeholder="Enter image URL or upload a file"
                                @bind="UiBook.Cover" />
 
-                        <span class="input-help">
-                            Enter the URL of the book cover image.
-                        </span>
+                        <label for="coverUpload" class="upload-button">
+                            Choose Image
+                        </label>
 
+                        <InputFile id="coverUpload"
+                                   style="display:none"
+                                   OnChange="UploadCoverImage"
+                                   accept="image/jpeg,image/png,image/webp" />
                     </div>
 
 
@@ -219,24 +218,25 @@
                     </div>
 
 
-                    <!-- File Path -->
-                    <div class="form-group full-width">
-
-                        <label for="filePath">
-                            Book File Path
-                        </label>
-
-                        <input id="filePath"
-                               type="text"
+                   
+                    <!-- PDF File -->
+                    <div class="file-input-row">
+                        <input type="text"
                                class="form-input"
-                               placeholder="C:\Books\MyBook.pdf"
+                               placeholder="Enter PDF URL or upload a file"
                                @bind="UiBook.FilePath" />
 
-                        <span class="input-help">
-                            The location of the digital book file.
-                        </span>
+                        <label for="pdfUpload" class="upload-button">
+                            Choose PDF
+                        </label>
 
+                        <InputFile id="pdfUpload"
+                                   style="display:none"
+                                   OnChange="UploadFilePdf"
+                                   accept=".pdf,application/pdf" />
                     </div>
+
+
 
                 </div>
 

@@ -1,5 +1,6 @@
 ﻿using BookManager.Domain.Model;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace BookManager.Client.Pages
 {
@@ -13,6 +14,8 @@ namespace BookManager.Client.Pages
 
         public string Message { get; set; }
         public Book UiBook { get; set; } = new();
+
+        private bool IsUploadingPdf, IsUploadingCover;
 
         public List<Author>? Authors { get; set; } = new();
 
@@ -64,6 +67,27 @@ namespace BookManager.Client.Pages
 #endif
             }
 
+
+        }
+
+        private async Task UploadCoverImage(InputFileChangeEventArgs e)
+        {
+            IBrowserFile? file = e.File;
+            if (file is null) 
+                return;
+
+            using MultipartFormDataContent? content = new MultipartFormDataContent();
+            using StreamContent? streamContent = new StreamContent(file.OpenReadStream());
+
+            streamContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(file.ContentType);
+            content.Add(streamContent, "form", file.Name);
+
+            string filePathOnServer = await FileRepository.Upload(content);
+            UiBook.Cover = filePathOnServer;
+        }
+
+        private async Task UploadFilePdf(InputFileChangeEventArgs e)
+        {
 
         }
     }

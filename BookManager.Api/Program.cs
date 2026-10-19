@@ -36,5 +36,5 @@ app.UseCors("BlazorClient");
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.UseStaticFiles();
 app.Run();

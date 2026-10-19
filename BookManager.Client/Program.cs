@@ -1,5 +1,5 @@
-using BookManager.Client.Authentication;
 using BookManager.Application.Interface;
+using BookManager.Client.Authentication;
 using BookManager.Infrastructure.Repository.RestRepository;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -14,6 +14,7 @@ builder.Services.AddScoped<IUserRepository,RestUserRepository>();
 builder.Services.AddScoped<IAuthorRepository,RestAuthorRepository>();
 builder.Services.AddScoped<ICategoryRepository,RestCategoryRepository>();
 builder.Services.AddScoped<IBookRepository,RestBookRepository>();
+builder.Services.AddScoped<IFileRepository,RestFileRepository>();
 
 
 IServiceCollection serviceCollection = builder.Services.AddScoped<CustomAuthStatProvider>();
