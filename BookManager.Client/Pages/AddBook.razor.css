@@ -398,3 +398,60 @@ select.form-input {
         padding: 16px;
     }
 }
+
+
+
+
+
+.upload-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-shrink: 0;
+    min-height: 46px;
+    padding: 0 20px;
+    margin: 0 !important;
+    background-color: #f0eafd;
+    color: #6243aa;
+    border: 1px solid #d7c8fa;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+    .upload-button:hover {
+        background-color: #e6dbfc;
+        border-color: #bba3ee;
+        color: #50358f;
+    }
+
+    .upload-button:active {
+        transform: scale(0.98);
+    }
+
+/* Layout: text input + upload button */
+.file-input-row {
+    display: flex;
+    align-items: stretch;
+    gap: 10px;
+}
+
+    .file-input-row .form-input {
+        flex: 1;
+        min-width: 0;
+    }
+
+/* Responsive */
+@media (max-width: 480px) {
+    .file-input-row {
+        flex-direction: column;
+    }
+
+    .upload-button {
+        width: 100%;
+    }
+}

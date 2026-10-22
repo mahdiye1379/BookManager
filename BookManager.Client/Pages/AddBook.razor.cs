@@ -21,6 +21,8 @@ namespace BookManager.Client.Pages
 
         public List<Category>? Categories { get; set; } = new();
 
+        long maxFileSize = 104857600;
+
         protected override async Task OnInitializedAsync()
         {
             Authors = await authorRepository.GetAuthors();
@@ -70,24 +72,39 @@ namespace BookManager.Client.Pages
 
         }
 
-        private async Task UploadCoverImage(InputFileChangeEventArgs e)
-        {
-            IBrowserFile? file = e.File;
-            if (file is null) 
-                return;
+    private async Task<string> Upload(InputFileChangeEventArgs e)
+    {
+        IBrowserFile? file = e.File;
+        if (file is null) 
+            return "";
 
-            using MultipartFormDataContent? content = new MultipartFormDataContent();
-            using StreamContent? streamContent = new StreamContent(file.OpenReadStream());
+        using MultipartFormDataContent? content = new MultipartFormDataContent();
+        using StreamContent? streamContent = new StreamContent(file.OpenReadStream(maxFileSize));
 
-            streamContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(file.ContentType);
-            content.Add(streamContent, "form", file.Name);
+        streamContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(file.ContentType);
+        content.Add(streamContent, "form", file.Name);
 
-            string filePathOnServer = await FileRepository.Upload(content);
-            UiBook.Cover = filePathOnServer;
-        }
+        string filePathOnServer = await FileRepository.Upload(content);
+        return filePathOnServer;
+    }
 
+    private async Task UploadCoverImage(InputFileChangeEventArgs e)
+     {
+
+            Console.WriteLine("UploadCoverImage started");
+
+            string ImagePathOnServer = await Upload(e);
+
+            Console.WriteLine($"Upload finished: {ImagePathOnServer}");
+
+            UiBook.Cover = ImagePathOnServer;
+
+    }
         private async Task UploadFilePdf(InputFileChangeEventArgs e)
         {
+
+            string PdfPathOnServer = await Upload(e);
+            UiBook.FilePath = PdfPathOnServer;
 
         }
     }

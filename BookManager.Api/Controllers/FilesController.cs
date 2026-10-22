@@ -18,7 +18,11 @@ namespace BookManager.Api.Controllers
         {
             try
             {
-                string Serverhard_ApiFolder = _envieronment.ContentRootPath;
+                string Serverhard_ApiFolder = _envieronment.ContentRootPath + "\\wwwroot\\uploads";
+
+                if(Directory.Exists(Serverhard_ApiFolder) == false)
+                    Directory.CreateDirectory(Serverhard_ApiFolder);
+
                 string FileName = Guid.NewGuid().ToString();
                 string FileExtension = Path.GetExtension(form.FileName);
 
@@ -31,7 +35,9 @@ namespace BookManager.Api.Controllers
                 // قرار دادن محتوای فایل دریافتی در فایل ایجاد شده در سرور
                 await form.CopyToAsync(EmptyFile);
 
-                return Ok(FilePath);
+                string FileUrl = $"{Request.Scheme}://{Request.Host}/uploads/{FileName}{FileExtension}";
+
+                return Ok(FileUrl);
             }
             catch (Exception ex)
             {
