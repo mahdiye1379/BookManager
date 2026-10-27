@@ -15,12 +15,37 @@ namespace BookManager.Infrastructure.Repository.EfRepository
             _dbContext = DbContext;
         }
 
-        public async Task<List<Book>?> GetAll(){
+        public async Task<List<Book>?> GetAll(int Page, int Count){
 
-            List<Book> Books = await _dbContext.Books.ToListAsync();
+            int SkipCount = (Page - 1) * Count;
+            List<Book> Books = await _dbContext.Books.OrderByDescending(x=>x.LastUpdate).Skip(SkipCount).Take(Count).ToListAsync();
             return Books;
-
         }
+
+        public async Task<List<Book>?> Search(int Page, int Count,string SearchText)
+        {
+
+            int SkipCount = (Page - 1) * Count;
+            List<Book> Books = await _dbContext.Books
+                                                .Where(x=>x.Title.Contains(SearchText))
+                                                .OrderByDescending(x => x.LastUpdate)
+                                                .Skip(SkipCount)
+                                                .Take(Count).ToListAsync();
+            return Books;
+        }
+
+        public async Task<List<Book>?> GetAll()
+        {
+            List<Book> Books = await _dbContext.Books.ToListAsync();
+            return Books;   
+        }
+
+        public async Task<int> GetBookCount()
+        {
+            int BooksCount = await _dbContext.Books.CountAsync();
+            return BooksCount;
+        }
+        
         public async Task<Book?> GetOne(Guid id)
         {
 

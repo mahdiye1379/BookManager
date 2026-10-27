@@ -25,6 +25,32 @@ namespace BookManager.Infrastructure.Repository.RestRepository
             return Books;
         }
 
+        public async Task<int> GetBookCount()
+        {
+            HttpResponseMessage result = await Client.GetAsync("Book/TotalPage");
+            int Count = await result.Content.ReadFromJsonAsync<int>();
+            return Count;
+        }
+        
+        public async Task<List<Book>?> GetAll(int Page, int Count)
+        {
+
+            HttpResponseMessage result = await Client.GetAsync($"Book/Get/{Page}/{Count}");
+
+            List<Book>? Books = await result.Content.ReadFromJsonAsync<List<Book>>();
+
+            return Books;
+        }
+        public async Task<List<Book>?> Search(int Page, int Count,string SearchText)
+        {
+
+            HttpResponseMessage result = await Client.GetAsync($"Book/Search/{Page}/{Count}/{SearchText}");
+
+            List<Book>? Books = await result.Content.ReadFromJsonAsync<List<Book>>();
+
+            return Books;
+        }
+
         public async Task<Book?> GetOne(Guid id)
         {
       

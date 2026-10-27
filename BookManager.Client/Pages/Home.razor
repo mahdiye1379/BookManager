@@ -2,6 +2,7 @@
 @using BookManager.Domain.Model
 @using BookManager.Application.Interface
 @inject IBookRepository bookRepository
+
 <PageTitle>My Library</PageTitle>
 
 <div class="library-page">
@@ -20,6 +21,19 @@
 
     </div>
 
+    <!-- Search -->
+    <div class="search-container">
+        <input type="text"
+               class="book-search"
+               placeholder="🔍 Search books by title..."
+               @bind="SearchText"
+               @bind:event="oninput" />
+
+        <button class="search-button"
+                @onclick="SearchBooks">
+            Search
+        </button>
+    </div>
 
     <!-- Books -->
     @if (Books.Count == 0)
@@ -42,7 +56,9 @@
                     <a href="/book/details/@item.ID" style="text-decoration:none;">
 
                     <div class="book-cover">
-                        <div class="book-icon">📖</div>
+                        <div class="book-icon">
+                               <img src="@item.Cover" style="width:100%;height:100%"/>
+                        </div>
                     </div>
 
                     <div class="book-content">
@@ -68,3 +84,30 @@
 </div>
 
 
+<!-- Pagination -->
+
+<div class="pagination-container">
+    
+    <button class="pagination-button"
+            disabled="@(CurrentPage == 1)"
+            @onclick="PreviousPage">
+        Previous
+    </button>
+
+    @for (int i = 1; i <= TotalPage; i++)
+    {
+        int pageNumber = i;
+
+        <button class="pagination-button @(CurrentPage == pageNumber ? "active" : "")"
+                @onclick="() => ChangePage(pageNumber)">
+            @pageNumber
+        </button>
+    }
+
+    <button class="pagination-button"
+            disabled="@(CurrentPage >= TotalPage)"
+            @onclick="NextPage">
+        Next
+    </button>
+
+</div>

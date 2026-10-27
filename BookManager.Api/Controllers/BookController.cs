@@ -23,14 +23,33 @@ namespace BookManager.Api.Controllers
             return Ok(ListBooks);
         }
 
-        
+        [HttpGet]
+        public async Task<IActionResult> TotalPage()
+        {
+            int BooksCount = await _bookRepository.GetBookCount();
+            return Ok(BooksCount);
+        }
+
+        [HttpGet("{Page}/{Count}")]
+        public async Task<IActionResult> Get([FromRoute] int Page, [FromRoute] int Count)
+        {
+            var ListBooks = await _bookRepository.GetAll(Page , Count);
+            return Ok(ListBooks);
+        }
+
+        [HttpGet("{Page}/{Count}/{SearchText}")]
+        public async Task<IActionResult> Search([FromRoute] int Page, [FromRoute] int Count, [FromRoute] string SearchText)
+        {
+            List<Book>? ListBooks = await _bookRepository.Search(Page, Count, SearchText);
+            return Ok(ListBooks);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> Find([FromRoute]Guid id)
         {
             var book = await _bookRepository.GetOne(id);
             return Ok(book);
         }
-
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
@@ -45,7 +64,6 @@ namespace BookManager.Api.Controllers
                 return BadRequest(result.Message);
             }
         }
-
 
         [HttpPost]
         public async Task<IActionResult> SendSaveRequest(Book book)
