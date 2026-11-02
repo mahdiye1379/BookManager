@@ -275,6 +275,7 @@ select.form-input {
    SAVE BUTTON
    ========================= */
 
+
 .save-button {
     display: inline-flex;
     align-items: center;
@@ -293,17 +294,35 @@ select.form-input {
     transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-    .save-button:hover {
+.Add-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 70px;
+    padding: 11px 20px;
+    border: none;
+    border-radius: 10px;
+    background: #6366f1;
+    color: white;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .save-button:hover, .Add-button:hover {
         background: #4f46e5;
         transform: translateY(-1px);
         box-shadow: 0 8px 18px rgba(79, 70, 229, 0.25);
     }
 
-    .save-button:active {
+    .save-button:active, .Add-button:active {
         transform: translateY(0);
     }
 
-    .save-button span {
+    .save-button,.Add-button span {
         font-size: 16px;
     }
 
@@ -454,4 +473,12 @@ select.form-input {
     .upload-button {
         width: 100%;
     }
+}
+
+
+
+.Selection-input {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
 }

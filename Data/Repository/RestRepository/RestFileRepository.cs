@@ -17,8 +17,6 @@ namespace BookManager.Infrastructure.Repository.RestRepository
             HttpResponseMessage httpResponseMessage = await Client.PostAsync("Files/Upload", fileContent);
             string serverFilePath = await httpResponseMessage.Content.ReadAsStringAsync();
             return serverFilePath;
-
         }
     }
 }
-

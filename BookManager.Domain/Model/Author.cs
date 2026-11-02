@@ -1,12 +1,19 @@
 ﻿namespace BookManager.Domain.Model
 {
-    public  class Author
+
+    public class Author
     {
-        public Guid ID { get; set; }
-        public string Name { get; set; }
-        public string Country { get; set; }
-        public string Bio { get; set; }
-        public string? Image { get; internal set; }
-        public List<Book> Books { get; set; }
+        public Guid ID { get; set; } = Guid.NewGuid();
+
+        public string Name { get; set; } = string.Empty;
+
+        public string Country { get; set; } = string.Empty;
+
+        public string Bio { get; set; } = string.Empty;
+
+        public string? Image { get; set; }
+
+        public List<Book> Books { get; set; } = new();
     }
+
 }

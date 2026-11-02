@@ -1,0 +1,231 @@
+﻿<h3>AddAuthor</h3>
+@page "/author/add"
+@page "/author/add/{Id:guid}"
+@using BookManager.Application.Interface
+@inject IAuthorRepository AuthorRepository;
+@inject IFileRepository FileRepository
+
+@using Microsoft.AspNetCore.Components.Forms
+
+<PageTitle>Add New Author | BookManager</PageTitle>
+
+<div class="add-author-page">
+
+    <nav class="breadcrumb">
+        <a href="/book/add/">Add Book</a>
+        <span>/</span>
+        <strong>Add Author</strong>
+    </nav>
+
+    <div class="page-header">
+        <div>
+            <span class="eyebrow">AUTHOR MANAGEMENT</span>
+            <h1>Add New Author</h1>
+            <p>Create a new author profile for your library.</p>
+        </div>
+
+        <a href="/book/add/" class="back-button">
+            ← Back to Add Book
+        </a>
+    </div>
+
+
+    <EditForm Model="@Author"
+              OnValidSubmit="SaveAuthor"
+              FormName="AddAuthorForm">
+
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        @if (!string.IsNullOrWhiteSpace(FormMessage))
+        {
+            <div class="form-message @(IsSuccess ? "success" : "error")"
+                 role="status">
+                <span class="message-icon">@(IsSuccess ? "✓" : "!")</span>
+                <span>@FormMessage</span>
+            </div>
+        }
+
+        <div class="editor-layout">
+
+            <div class="editor-main">
+
+                <!-- BASIC INFORMATION -->
+                <section class="form-card">
+                    <div class="section-heading">
+                        <div class="section-icon">01</div>
+                        <div>
+                            <h2>Basic Information</h2>
+                            <p>Enter the author's personal details.</p>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label for="authorName">Full Name *</label>
+
+                            <InputText id="authorName"
+                                       class="form-input"
+                                       placeholder="e.g. Robert C. Martin"
+                                       @bind-Value="Author.Name" />
+
+                            <ValidationMessage For="@(() => Author.Name)" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="country">Country *</label>
+
+                            <InputText id="country"
+                                       class="form-input"
+                                       placeholder="e.g. United States"
+                                       @bind-Value="Author.Country" />
+
+                            <ValidationMessage For="@(() => Author.Country)" />
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- BIOGRAPHY -->
+                <section class="form-card">
+                    <div class="section-heading">
+                        <div class="section-icon">02</div>
+                        <div>
+                            <h2>Biography</h2>
+                            <p>Tell readers about this author.</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bio">About the Author</label>
+
+                        <InputTextArea id="bio"
+                                       class="form-textarea"
+                                       rows="8"
+                                       placeholder="Write a short biography about the author's background, career and achievements..."
+                                       @bind-Value="Author.Bio" />
+
+                        <span class="input-help">
+                            A clear biography helps readers discover authors.
+                        </span>
+                    </div>
+                </section>
+
+                <!-- PROFILE IMAGE -->
+                <section class="form-card">
+                    <div class="section-heading">
+                        <div class="section-icon">03</div>
+                        <div>
+                            <h2>Profile Image</h2>
+                            <p>Add a photo to personalize the author profile.</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="authorImage">Author Image</label>
+
+                        <div class="file-input-row">
+
+                            <InputText id="authorImage"
+                                       class="form-input"
+                                       placeholder="Enter image URL or upload"
+                                       @bind-Value="Author.Image" />
+
+                            <label for="authorImageUpload"
+                                   class="upload-button">
+                                ↑ Choose Image
+                            </label>
+
+                            <InputFile id="authorImageUpload"
+                                       class="native-file-input"
+                                       OnChange="UploadAuthorImage"
+                                       accept=".jpg,.jpeg,.png,.webp" />
+
+                        </div>
+
+                        <span class="input-help">
+                            JPG, PNG or WebP · Maximum 5 MB
+                        </span>
+
+                    </div>
+                </section>
+
+                <!-- ACTION BUTTONS -->
+                <div class="form-actions">
+
+                    <a href="/book/add" class="cancel-button">
+                        Cancel
+                    </a>
+
+                    <button type="submit" class="save-button">
+                        @SaveButtonText
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- LIVE PREVIEW -->
+            <aside class="editor-sidebar">
+
+                <div class="preview-card">
+
+                    <div class="preview-heading">
+                        <h3>Author Preview</h3>
+                        <span>LIVE PREVIEW</span>
+                    </div>
+
+                    <div class="avatar-preview">
+                        @if (!string.IsNullOrWhiteSpace(Author.Image))
+                        {
+                            <img src="@Author.Image"
+                                 alt="Author preview" />
+                        }
+                        else
+                        {
+                            <div class="empty-avatar">
+                                <span>👤</span>
+                            </div>
+                        }
+                    </div> 
+
+                    <h3 class="preview-name">
+                        @(string.IsNullOrWhiteSpace(Author.Name)
+                            ? "Author Name"
+                            : Author.Name)
+                    </h3>
+
+                    <p class="preview-country">
+                        @(string.IsNullOrWhiteSpace(Author.Country)
+                            ? "Country not specified"
+                            : Author.Country)
+                    </p>
+
+                    <div class="preview-divider"></div>
+
+                    <h4>Biography</h4>
+
+                    <p class="preview-bio">
+                        @(string.IsNullOrWhiteSpace(Author.Bio)
+                            ? "The author's biography will appear here."
+                            : Author.Bio)
+                    </p>
+
+                </div>
+
+                <div class="tip-card">
+                    <h3>Library Tip</h3>
+                    <p>
+                        Adding author profiles makes it easier
+                        to organize and discover books in your library.
+                    </p>
+                </div>
+
+            </aside>
+
+        </div>
+
+    </EditForm>
+
+</div>

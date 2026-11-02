@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Components.Forms;
 
 namespace BookManager.Client.Pages
 {
-
     public partial class AddBook : ComponentBase
     {
         [Parameter]
@@ -12,8 +11,9 @@ namespace BookManager.Client.Pages
 
         public bool IsEdit => id is null ? false : true;
 
-        public string Message { get; set; }
+        public string Message { get; set; } 
         public Book UiBook { get; set; } = new();
+        public Category category { get; set; } = new();
 
         private bool IsUploadingPdf, IsUploadingCover;
 
@@ -72,34 +72,28 @@ namespace BookManager.Client.Pages
 
         }
 
-    private async Task<string> Upload(InputFileChangeEventArgs e)
-    {
-        IBrowserFile? file = e.File;
-        if (file is null) 
-            return "";
 
-        using MultipartFormDataContent? content = new MultipartFormDataContent();
-        using StreamContent? streamContent = new StreamContent(file.OpenReadStream(maxFileSize));
+        private async Task<string> Upload(InputFileChangeEventArgs e)
+        {
+            IBrowserFile? file = e.File;
+            if (file is null) 
+                return "";
 
-        streamContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(file.ContentType);
-        content.Add(streamContent, "form", file.Name);
+            using MultipartFormDataContent? content = new MultipartFormDataContent();
+            using StreamContent? streamContent = new StreamContent(file.OpenReadStream(maxFileSize));               
 
-        string filePathOnServer = await FileRepository.Upload(content);
-        return filePathOnServer;
-    }
+            streamContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(file.ContentType);
+            content.Add(streamContent, "form", file.Name);
 
-    private async Task UploadCoverImage(InputFileChangeEventArgs e)
-     {
+            string filePathOnServer = await FileRepository.Upload(content);
+            return filePathOnServer;
+        }
 
-            Console.WriteLine("UploadCoverImage started");
-
-            string ImagePathOnServer = await Upload(e);
-
-            Console.WriteLine($"Upload finished: {ImagePathOnServer}");
-
-            UiBook.Cover = ImagePathOnServer;
-
-    }
+        private async Task UploadCoverImage(InputFileChangeEventArgs e)
+         {
+                string ImagePathOnServer = await Upload(e);
+                UiBook.Cover = ImagePathOnServer;
+        }
         private async Task UploadFilePdf(InputFileChangeEventArgs e)
         {
 
@@ -107,7 +101,33 @@ namespace BookManager.Client.Pages
             UiBook.FilePath = PdfPathOnServer;
 
         }
+
+        public void AddAuthor()
+        {
+           Navigation.NavigateTo("/author/add");
+        }
+        
+        public void EditAuthor()
+        {
+            if (UiBook.AuthorId == Guid.Empty)
+                return;
+
+            Navigation.NavigateTo($"/author/add/{UiBook.AuthorId}");
+        }
+
+        public void AddCategory()
+        {
+            Navigation.NavigateTo("/AddCategory");
+        }
+
+        public void EditCategory()
+        {
+            if (UiBook.CategoryId == Guid.Empty)
+                return;                     
+
+            Navigation.NavigateTo($"/AddCategory/{UiBook.CategoryId}");
+        }       
+
     }
 }
-
   

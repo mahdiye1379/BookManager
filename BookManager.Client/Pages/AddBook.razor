@@ -64,21 +64,26 @@
                             Author
                         </label>
 
-                        <select id="author"
-                                class="form-input"
-                                @bind="UiBook.AuthorId">
+                        <div class="Selection-input">
+                            <select id="author"
+                                    class="form-input"
+                                    @bind="UiBook.AuthorId">
 
-                            <option value="">Select an author</option>
+                                <option value="@Guid.Empty">Select an author</option>
 
-                            @if (Authors is not null)
-                            @foreach (var author in Authors)
-                            {
-                                <option value="@author.ID">
-                                    @author.Name
-                                </option>
-                            }
+                                @if (Authors is not null)
+                                @foreach (var author in Authors)
+                                {
+                                    <option value="@author.ID">
+                                        @author.Name
+                                    </option>
+                                }
 
-                        </select>
+                            </select>
+
+                            <button type="button" class="Add-button" @onclick="AddAuthor">Add</button>
+                            <button type="button" class="Add-button" @onclick="EditAuthor">Edit</button>
+                        </div>
 
                     </div>
 
@@ -90,22 +95,27 @@
                             Category
                         </label>
 
-                        <select id="category"
-                                class="form-input"
-                                @bind="UiBook.CategoryId">
+                        <div class="Selection-input">
+                            <select id="category"
+                                    class="form-input"
+                                    @bind="UiBook.CategoryId">
 
-                            <option value="">Select a category</option>
+                                <option value="@Guid.Empty">Select a category</option>
 
-                            @if (Categories is not null)
-                            @foreach (var category in Categories)
-                            {
-                                <option value="@category.ID">
-                                    @category.Name
-                                </option>
-                            }
+                                @if (Categories is not null)
+                                @foreach (var category in Categories)
+                                {
+                                    <option value="@category.ID">
+                                        @category.Name
+                                    </option>
+                                }
 
-                        </select>
+                            </select>
 
+                            <button type="button" class="Add-button" @onclick="AddCategory">Add</button> 
+                            <button type="button" class="Add-button" @onclick="EditCategory">Edit</button>  
+
+                        </div> 
                     </div>
 
 
@@ -242,7 +252,6 @@
                 </div>
 
             </div>
-
 
 
             <div class="form-actions">

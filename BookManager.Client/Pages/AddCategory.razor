@@ -1,0 +1,93 @@
+﻿@page "/AddCategory"
+@page "/AddCategory/{Id:guid}"
+
+@using BookManager.Application.Interface
+@inject ICategoryRepository CategoryRepository
+
+<PageTitle>Add Category | BookManager</PageTitle>
+
+<div class="category-page">
+    <a href="/book/add/" class="back-link">← Back to Add Book</a>
+
+    <header class="page-header">
+        <span class="eyebrow">ORGANIZE YOUR LIBRARY</span>
+        <h1>A new home for your books.</h1>
+        <p>Create a category to keep related books together.</p>
+    </header>
+
+    <div class="category-layout">
+        <section class="editor-card">
+            <div class="card-heading">
+                <span class="heading-icon" aria-hidden="true">＋</span>
+                <div>
+                    <h2>Create category</h2>
+                    <p>Start with a short, meaningful name.</p>
+                </div>
+            </div>
+
+
+            <EditForm Model="@Category" OnSubmit="SaveCategory">
+
+                @if (!string.IsNullOrWhiteSpace(FormMessage))
+                {
+                    <div class="form-message @(IsSuccess ? "success" : "error")"
+                         role="status">
+                        <span class="message-icon">@(IsSuccess ? "✓" : "!")</span>
+                        <span>@FormMessage</span>
+                    </div>
+                }
+
+                <label for="categoryName">Category name</label>
+
+                <input id="categoryName"
+                       class="name-input"
+                       placeholder="e.g. Programming"
+                       maxlength="60"
+                       autocomplete="off"
+                       @bind="Category.Name"
+                       @bind:event="oninput" />
+
+                <div class="field-footer">
+                    <span>Make it easy to recognize.</span>
+                </div>
+
+                <div class="form-actions">
+
+                    <button type="button"
+                            class="reset-button"
+                            @onclick="ResetForm">
+                        Clear
+                    </button>
+
+                    <button type="submit"
+                            class="save-button">
+                        @SaveButtonText
+                    </button> 
+
+                </div>
+            </EditForm>
+        </section>
+
+
+        <aside class="preview-panel">
+            <div class="preview-label">
+                <span class="live-dot"></span>
+                LIVE PREVIEW
+            </div>
+
+            <div class="category-preview">
+                <div class="folder-icon" aria-hidden="true">▤</div>
+                <h2>@PreviewName</h2>
+                <p>Your next great collection starts here.</p>
+                <span class="book-count">0 books</span>
+            </div>
+
+            <p class="preview-hint">
+                Once created, this category will be available
+                when adding or editing a book.
+            </p>
+        </aside>
+
+    </div>
+</div>
+
