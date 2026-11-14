@@ -17,8 +17,6 @@ builder.Services.AddScoped<IFileRepository, RestFileRepository>();
 builder.Services.AddRazorComponents()
     .AddInteractiveWebAssemblyComponents();
 
-builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
 
 // Register authorization services
 builder.Services.AddAuthorization();
