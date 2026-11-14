@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<BookManager_DbContext>(option=>option.UseSqlServer
-    ("Data Source=.;Initial Catalog=BookManager;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;"));
+    ("Server=localhost;Database=BookManager;User ID=sa;Password=omidOMID$12345;Encrypt=True;TrustServerCertificate=True;"));
 builder.Services.AddScoped<IAuthorRepository,EfAuthorRepository>();
 builder.Services.AddScoped<ICategoryRepository,EfCategoryRepository>();
 builder.Services.AddScoped<IBookRepository,EfBookRepository>();

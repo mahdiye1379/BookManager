@@ -1,6 +1,8 @@
 using BookManager.Application.Interface;
 using BookManager.Components;
 using BookManager.Infrastructure.Repository.RestRepository;
+using BookManager.Client.Authentication;
+using Microsoft.AspNetCore.Components.Authorization; 
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +23,12 @@ builder.Services.AddRazorComponents()
 // Register authorization services
 builder.Services.AddAuthorization();
 builder.Services.AddCascadingAuthenticationState();
+
+
+builder.Services.AddScoped<CustomAuthStatProvider>();
+
+builder.Services.AddScoped<AuthenticationStateProvider>(
+    sp => sp.GetRequiredService<CustomAuthStatProvider>());
 
 var app = builder.Build();
 
