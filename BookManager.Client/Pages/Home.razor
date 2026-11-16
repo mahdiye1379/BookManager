@@ -1,4 +1,4 @@
-﻿@page "/"
+@page "/"
 @using BookManager.Domain.Model
 @using BookManager.Application.Interface
 @inject IBookRepository bookRepository
@@ -7,10 +7,10 @@
 
 <div class="library-page">
     <header class="library-hero">
-        <h1>Free Programming<br />Books</h1>
+        <h1>Free Programming<br /> Books</h1>
         <p>Find your next programming read.</p>
 
-        <div class="search-bar" role="search">
+        <form class="search-bar" role="search" @onsubmit="SearchBooks" @onsubmit:preventDefault>
             <span class="search-icon" aria-hidden="true"></span>
 
             <input type="search"
@@ -19,8 +19,8 @@
                    @bind="SearchText"
                    @bind:event="oninput" />
 
-            <button type="button" @onclick="SearchBooks">Search</button>
-        </div>
+            <button type="submit">Search</button>
+        </form>
     </header>
 
     <section class="library-results" aria-labelledby="library-heading">

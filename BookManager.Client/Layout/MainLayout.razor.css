@@ -165,3 +165,90 @@
         font-size: 0.8125rem;
     }
 }
+
+.bm-header {
+    isolation: isolate;
+    background: linear-gradient(105deg, #fff 23%, #f3efff 57%, #fff 84%);
+    box-shadow: 0 6px 24px rgb(49 35 100 / 7%);
+}
+
+.bm-header::before {
+    position: absolute;
+    inset: 0 0 auto;
+    height: 3px;
+    background: linear-gradient(90deg, #4f46e5, #a78bfa 48%, #ebe5ff);
+    content: "";
+}
+
+.bm-logo {
+    width: 42px;
+    height: 42px;
+    transform: rotate(-7deg);
+    box-shadow: 0 5px 14px rgb(79 70 229 / 26%);
+}
+
+.bm-logo-book {
+    position: relative;
+    width: 23px;
+    height: 16px;
+    transform: rotate(7deg);
+}
+
+.bm-logo-book::before,
+.bm-logo-book::after {
+    position: absolute;
+    top: 0;
+    width: 11px;
+    height: 16px;
+    border: 1.5px solid currentColor;
+    content: "";
+}
+
+.bm-logo-book::before { left: 1px; border-radius: 3px 5px 1px 3px; }
+.bm-logo-book::after { right: 1px; border-radius: 5px 3px 3px 1px; }
+
+.bm-header-art {
+    position: absolute;
+    z-index: -1;
+    inset: 5px auto 0 52%;
+    display: flex;
+    align-items: flex-end;
+    gap: 5px;
+    overflow: hidden;
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+.bm-header-art span {
+    display: block;
+    width: 15px;
+    height: 38px;
+    border: 1px solid #ddd2f9;
+    border-radius: 5px 5px 0 0;
+    background: linear-gradient(180deg, #e8dfff, #f7f3ff);
+}
+
+.bm-header-art span:nth-child(2) { height: 49px; }
+.bm-header-art span:nth-child(3) { height: 34px; width: 11px; }
+.bm-header-art span:nth-child(4) { height: 45px; }
+.bm-header-art span:nth-child(5) { height: 40px; margin-inline: 4px; transform: skewX(-12deg); }
+
+.bm-account ::deep .bm-primary {
+    background: linear-gradient(120deg, #4f46e5, #6d28d9);
+    box-shadow: 0 3px 10px rgb(79 70 229 / 18%);
+}
+
+.bm-sidebar {
+    padding: 22px 12px;
+    background: #f8f6ff;
+}
+
+@media (max-width: 760px) {
+    .bm-header { background: linear-gradient(105deg, #f7f3ff, #fff 64%); }
+    .bm-header-art { display: none; }
+    .bm-sidebar { padding: 8px 12px; }
+}
+
+@media (max-width: 380px) {
+    .bm-logo { width: 32px; height: 32px; }
+}

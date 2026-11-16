@@ -1,15 +1,16 @@
 @using Microsoft.AspNetCore.Components.Authorization
 
 <nav class="bm-menu" aria-label="Main navigation">
+    <span class="bm-menu-label" aria-hidden="true">Browse</span>
     <NavLink class="bm-menu-link" href="" Match="NavLinkMatch.All">
-        <span class="bm-menu-icon" aria-hidden="true">⌂</span>
+        <span class="bm-menu-icon bm-home-icon" aria-hidden="true"></span>
         <span>Home</span>
     </NavLink>
 
     <AuthorizeView>
         <Authorized>
             <NavLink class="bm-menu-link" href="/library">
-                <span class="bm-menu-icon" aria-hidden="true">▤</span>
+                <span class="bm-menu-icon bm-library-icon" aria-hidden="true"></span>
                 <span>Library</span>
             </NavLink>
         </Authorized>

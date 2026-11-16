@@ -691,3 +691,27 @@
         opacity: 0.4;
         cursor: not-allowed;
     }*/
+
+.library-hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+}
+.library-hero::after {
+    position: absolute;
+    z-index: -1;
+    inset: 16% 6% auto auto;
+    width: clamp(140px, 30%, 330px);
+    aspect-ratio: 1;
+    border: 1px solid #cbbcf7;
+    border-radius: 35%;
+    background: repeating-radial-gradient(circle at center, transparent 0 18px, rgb(109 76 218 / 9%) 19px 20px);
+    transform: rotate(-14deg);
+    content: "";
+}
+.library-hero .search-bar { position: relative; }
+.book-card:hover .book-link { text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 580px) {
+    .library-hero::after { opacity: .45; inset-inline-end: -38px; }
+    .library-hero h1 br { display: none; }
+}

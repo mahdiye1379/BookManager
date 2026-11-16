@@ -500,3 +500,26 @@
     .reader-section { grid-area: reader; }
     .reading-dashboard { grid-area: progress; position: sticky; top: 92px; }
 }
+
+.details-cover-placeholder {
+    display: grid;
+    place-items: center;
+    min-height: 180px;
+    color: #4f46e5;
+    font-size: 3rem;
+}
+.book-hero .metadata-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 114px), 1fr));
+    gap: 8px;
+}
+.book-hero .metadata-row > div {
+    min-width: 0;
+    padding: 10px 12px;
+    border: 1px solid #e7e0f7;
+    border-radius: 12px;
+    background: #faf8ff;
+}
+@media (max-width: 540px) {
+    .hero-actions > a { flex: 1 1 155px; }
+}

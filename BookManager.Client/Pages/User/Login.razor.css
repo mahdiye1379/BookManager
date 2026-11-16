@@ -147,3 +147,7 @@
     .login-page .account-intro { padding: 18px 22px; }
     .login-page .account-intro h1 { margin-bottom: 6px; }
 }
+
+.login-card { border-top: 3px solid #cbbcf7; }
+.login-page .register-link { padding-top: 16px; border-top: 1px solid #e7e4f0; }
+.login-page .error-message { overflow-wrap: anywhere; }

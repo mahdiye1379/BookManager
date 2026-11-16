@@ -104,3 +104,15 @@
 }
 .collection-state h2 { font-size: 1.2rem; }
 .collection-state p { margin-bottom: 0; color: #5f5c75; }
+
+.collection-card {
+    border-top: 3px solid #dcd4ff;
+}
+.collection-card:focus-within { border-color: #9b8aee; }
+.collection-cover:hover { background: #e7dfff; }
+.collection-actions { column-gap: 8px; row-gap: 6px; }
+@media (max-width: 420px) {
+    .collection-header > div, .collection-add { width: 100%; }
+    .collection-actions time { flex-basis: 100%; }
+    .collection-edit, .collection-delete { flex: 1; }
+}

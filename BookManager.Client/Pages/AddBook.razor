@@ -199,6 +199,7 @@
                     <!-- Cover Image -->
                     <div class="file-input-row">
                         <input type="text"
+                               aria-label="Cover image URL"
                                class="form-input"
                                placeholder="Enter image URL or upload a file"
                                @bind="UiBook.Cover" />
@@ -208,7 +209,7 @@
                         </label>
 
                         <InputFile id="coverUpload"
-                                   style="display:none"
+                                   class="book-upload-input"
                                    OnChange="UploadCoverImage"
                                    accept="image/jpeg,image/png,image/webp" />
                     </div>
@@ -236,6 +237,7 @@
                     <!-- PDF File -->
                     <div class="file-input-row">
                         <input type="text"
+                               aria-label="PDF URL"
                                class="form-input"
                                placeholder="Enter PDF URL or upload a file"
                                @bind="UiBook.FilePath" />
@@ -245,7 +247,7 @@
                         </label>
 
                         <InputFile id="pdfUpload"
-                                   style="display:none"
+                                   class="book-upload-input"
                                    OnChange="UploadFilePdf"
                                    accept=".pdf,application/pdf" />
                     </div>

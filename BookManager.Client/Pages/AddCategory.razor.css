@@ -381,3 +381,10 @@ button:focus-visible,
     .category-layout { grid-template-columns: minmax(0, 1fr) minmax(240px, .62fr); }
     .preview-panel { position: sticky; top: 92px; }
 }
+
+.editor-card:focus-within { border-color: #c1b3f2; }
+.preview-panel { border-top: 3px solid #cfc2fb; }
+@media (max-width: 480px) {
+    .form-actions { flex-wrap: wrap; }
+    .form-actions > button { flex: 1 1 120px; }
+}

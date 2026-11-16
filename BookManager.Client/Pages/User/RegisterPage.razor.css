@@ -151,3 +151,7 @@
     .register-fields .form-group { min-width: 0; margin: 0; }
     .register-wide, .register-button { grid-column: 1 / -1; }
 }
+
+.register-card { border-top: 3px solid #cbbcf7; }
+.register-page .login-link { padding-top: 16px; border-top: 1px solid #e7e4f0; }
+.register-page .message { overflow-wrap: anywhere; }

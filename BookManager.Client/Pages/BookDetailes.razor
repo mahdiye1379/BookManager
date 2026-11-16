@@ -7,7 +7,7 @@
 
 <div class="book-details-page">
 
-    <nav class="breadcrumb-nav">
+    <nav class="breadcrumb-nav" aria-label="Breadcrumb">
         <a href="/">Home</a>
         <span>/</span>
         <a href="/library">Library</a>
@@ -38,8 +38,14 @@
 
             <div class="cover-column">
                 <div class="cover-frame">
-                    <img src="@book.Cover"
-                         alt="@book.Title" />
+                    @if (!string.IsNullOrWhiteSpace(book.Cover))
+                    {
+                        <img src="@book.Cover" alt="" />
+                    }
+                    else
+                    {
+                        <span class="details-cover-placeholder" aria-hidden="true">▤</span>
+                    }
                 </div>
                 <div class="availability">
                     <span class="availability-dot"></span>
@@ -118,7 +124,8 @@
                     <strong class="progress-percent">@progressPercent%</strong>
                 </div>
 
-                <div class="reading-track">
+                <div class="reading-track" role="progressbar" aria-label="Reading progress"
+                     aria-valuemin="0" aria-valuemax="100" aria-valuenow="@progressPercent">
                     <div class="reading-fill"
                          style="width:@progressPercent%"></div>
                 </div>
