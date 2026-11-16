@@ -1,4 +1,4 @@
-﻿@page "/book/details/{Id:guid}"
+@page "/book/details/{Id:guid}"
 @using BookManager.Application.Interface
 @inject IBookRepository bookRepository
 @using BookManager.Domain.Model
@@ -108,70 +108,73 @@
             </div>
         </section>
 
-        <section class="reading-dashboard">
-            <div class="dashboard-heading">
-                <div>
-                    <span class="section-kicker">YOUR READING JOURNEY</span>
-                    <h2>Reading Progress</h2>
-                </div>
-                <strong class="progress-percent">@progressPercent%</strong>
-            </div>
-
-            <div class="reading-track">
-                <div class="reading-fill"
-                     style="width:@progressPercent%"></div>
-            </div>
-
-            <div class="progress-footer">
-                <span>Page @book.CurrentReadingPage of @book.TotalPage</span>
-                <span>@remainingPages pages remaining</span>
-            </div>
-        </section>
-
-        <section class="reader-section" id="reader">
-            <div class="reader-heading">
-                <div>
-                    <span class="section-kicker">DIGITAL READING ROOM</span>
-                    <h2>Read this book</h2>
-                    <p>Enjoy your book directly in your browser.</p>
-                </div>
-
-                @if (!string.IsNullOrWhiteSpace(book.FilePath))
-                {
-                    <a href="@book.FilePath"
-                       target="_blank"
-                       rel="noopener noreferrer"
-                       class="reader-open-btn">
-                        Open in New Tab ↗
-                    </a>
-                }
-            </div>
-
-            <div class="reader-shell">
-                <div class="reader-toolbar">
-                    <div class="reader-document">
-                        <span class="pdf-icon">PDF</span>
-                        <span class="reader-filename">@book.Title</span>
+        <div class="reading-layout">
+            <section class="reading-dashboard">
+                <div class="dashboard-heading">
+                    <div>
+                        <span class="section-kicker">YOUR READING JOURNEY</span>
+                        <h2>Reading Progress</h2>
                     </div>
-                    <span class="reader-status">BookManager Reader</span>
+                    <strong class="progress-percent">@progressPercent%</strong>
                 </div>
 
-                @if (!string.IsNullOrWhiteSpace(book.FilePath))
-                {
-                    <iframe class="pdf-frame"
-                            src="@book.FilePath"
-                            title="@($"Read {book.Title}")">
-                    </iframe>
-                }
-                else
-                {
-                    <div class="reader-empty">
-                        <h3>No preview available</h3>
-                        <p>This book doesn't have a PDF file yet.</p>
+                <div class="reading-track">
+                    <div class="reading-fill"
+                         style="width:@progressPercent%"></div>
+                </div>
+
+                <div class="progress-footer">
+                    <span>Page @book.CurrentReadingPage of @book.TotalPage</span>
+                    <span>@remainingPages pages remaining</span>
+                </div>
+            </section>
+
+            <section class="reader-section" id="reader">
+                <div class="reader-heading">
+                    <div>
+                        <span class="section-kicker">DIGITAL READING ROOM</span>
+                        <h2>Read this book</h2>
+                        <p>Enjoy your book directly in your browser.</p>
                     </div>
-                }
-            </div>
-        </section>
+
+                    @if (!string.IsNullOrWhiteSpace(book.FilePath))
+                    {
+                        <a href="@book.FilePath"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           class="reader-open-btn">
+                            Open in New Tab ↗
+                        </a>
+                    }
+                </div>
+
+                <div class="reader-shell">
+                    <div class="reader-toolbar">
+                        <div class="reader-document">
+                            <span class="pdf-icon">PDF</span>
+                            <span class="reader-filename">@book.Title</span>
+                        </div>
+                        <span class="reader-status">BookManager Reader</span>
+                    </div>
+
+                    @if (!string.IsNullOrWhiteSpace(book.FilePath))
+                    {
+                        <iframe class="pdf-frame"
+                                src="@book.FilePath"
+                                title="@($"Read {book.Title}")">
+                        </iframe>
+                    }
+                    else
+                    {
+                        <div class="reader-empty">
+                            <h3>No preview available</h3>
+                            <p>This book doesn't have a PDF file yet.</p>
+                        </div>
+                    }
+                </div>
+            </section>
+
+        </div>
 
         <footer class="book-footer">
             <div>

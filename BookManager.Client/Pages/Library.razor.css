@@ -1,187 +1,106 @@
-﻿
-.library-page {
-    padding: 32px;
+.collection {
+    max-width: 1240px;
+    margin-inline: auto;
+    padding: clamp(12px, 3vw, 32px);
+    color: #191735;
 }
 
-/* Header */
-
-.library-header {
+.collection-header {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
     align-items: center;
-    margin-bottom: 30px;
+    justify-content: space-between;
+    gap: 16px;
+    padding: clamp(22px, 4vw, 46px);
+    border: 1px solid #e4def9;
+    border-radius: 24px;
+    background: radial-gradient(ellipse at top right, #ded4ff, transparent 72%), #f5f3ff;
 }
 
-    .library-header h1 {
-        margin: 0;
-        font-size: 32px;
-    }
-
-    .library-header p {
-        margin-top: 6px;
-        color: #777;
-    }
-
-/* Add button */
-
-.add-book-btn {
-    border: none;
-    background: #2563eb;
-    color: white;
-    padding: 11px 18px;
-    border-radius: 8px;
-    font-size: 14px;
-    cursor: pointer;
+.collection-header h1 {
+    margin: 0 0 8px;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    font-weight: 800;
+    letter-spacing: -.05em;
 }
 
-    .add-book-btn:hover {
-        background: #1d4ed8;
-    }
-
-/* Grid */
-
-.books-container {
-    background: white;
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid #e5e7eb;
+.collection-header p, .collection-info p {
+    margin: 0;
+    color: #5f5c75;
 }
 
-.books-grid {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-    .books-grid th {
-        text-align: left;
-        padding: 15px 18px;
-        background: #f8fafc;
-        color: #64748b;
-        font-size: 13px;
-        font-weight: 600;
-    }
-
-    .books-grid td {
-        padding: 14px 18px;
-        border-top: 1px solid #edf0f3;
-        vertical-align: middle;
-    }
-
-    .books-grid tbody tr:hover {
-        background: #f8fafc;
-    }
-
-/* Cover */
-
-.book-cover {
-    width: 50px;
-    height: 70px;
-    object-fit: cover;
-    border-radius: 5px;
-    background: #eee;
-}
-
-/* Title */
-
-.book-title {
-    font-weight: 600;
-    color: #1e293b;
-}
-
-/* Category */
-
-.category {
-    display: inline-block;
-    padding: 5px 9px;
-    border-radius: 6px;
-    background: #eef2ff;
-    color: #4f46e5;
-    font-size: 12px;
-    font-weight: 600;
-}
-
-/* Progress */
-
-.progress-container {
-    width: 150px;
-}
-
-.progress-bar {
-    height: 7px;
-    background: #e5e7eb;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.progress-fill {
-    height: 100%;
-    background: #2563eb;
-    border-radius: 10px;
-}
-
-.progress-text {
-    display: block;
-    margin-top: 5px;
-    font-size: 12px;
-    color: #64748b;
-}
-
-/* Actions */
-
-.actions {
+.collection-heading, .collection-progress > div, .collection-actions {
     display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     gap: 8px;
 }
 
-.edit-btn,
-.delete-btn {
-    border: none;
-    padding: 7px 11px;
-    border-radius: 6px;
-    font-size: 12px;
-    cursor: pointer;
+.collection-heading { justify-content: space-between; margin: 28px 0 14px; }
+.collection-heading h2 { margin: 0; font-size: 1.35rem; font-weight: 750; }
+.collection-heading span, .collection-actions time { color: #5f5c75; font-size: .875rem; }
+
+.collection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+    gap: 16px;
 }
 
-.edit-btn {
-    background: #eff6ff;
-    color: #2563eb;
+.collection-card {
+    display: grid;
+    grid-template-rows: 1fr auto auto;
+    gap: 16px;
+    padding: clamp(12px, 2vw, 20px);
+    background: #fff;
+    border: 1px solid #e7e4f0;
+    border-radius: 18px;
+    box-shadow: 0 4px 14px rgb(32 25 65 / 6%);
 }
 
-    .edit-btn:hover {
-        background: #dbeafe;
-    }
-
-.delete-btn {
-    background: #fef2f2;
-    color: #dc2626;
+.collection-book { display: grid; grid-template-columns: 70px minmax(0, 1fr); gap: 14px; }
+.collection-cover {
+    display: grid;
+    place-items: center;
+    height: 94px;
+    border-radius: 9px;
+    background: #f0edff;
+    color: #4338ca;
+    text-decoration: none;
 }
+.collection-cover img { width: 100%; height: 94px; object-fit: contain; }
+.collection-info { overflow-wrap: anywhere; }
+.collection-info h3 { margin: 6px 0 4px; font-size: 1.075rem; font-weight: 750; }
+.collection-info h3 a { color: inherit; text-decoration: none; }
+.collection-info h3 a:hover { text-decoration: underline; }
+.collection-category { color: #4338ca; font-size: .8rem; font-weight: 700; }
 
-    .delete-btn:hover {
-        background: #fee2e2;
-    }
+.collection-progress > div { justify-content: space-between; font-size: .8rem; color: #5f5c75; }
+.collection-progress progress { display: block; width: 100%; height: 10px; margin-top: 8px; accent-color: #4f46e5; }
+.collection-actions { border-top: 1px solid #e7e4f0; padding-top: 10px; }
+.collection-actions time { margin-inline-end: auto; }
 
-/* Loading */
-
-.loading {
-    padding: 50px;
-    text-align: center;
-    color: #64748b;
+.collection button {
+    min-height: 44px;
+    padding: 8px 12px;
+    border: 0;
+    border-radius: 10px;
+    font-size: .875rem;
+    font-weight: 700;
 }
+.collection-add { background: #4f46e5; color: white; }
+.collection-add:hover { background: #4338ca; }
+.collection-edit { background: #eeebff; color: #3730a3; }
+.collection-edit:hover { background: #e0d9ff; }
+.collection-delete { background: #fff0f2; color: #a11235; }
+.collection-delete:hover { background: #ffe0e6; }
+.collection :is(a, button):focus-visible { outline: 2px solid #4f46e5; outline-offset: 3px; }
 
-/* Empty */
-
-.empty-library {
-    text-align: center;
-    padding: 80px 20px;
-    border: 1px dashed #cbd5e1;
-    border-radius: 12px;
+.collection-state, .collection-message {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #e7e4f0;
+    border-radius: 16px;
+    background: #fff;
 }
-
-    .empty-library h3 {
-        margin-bottom: 5px;
-    }
-
-    .empty-library p {
-        color: #64748b;
-        margin-bottom: 20px;
-    }
+.collection-state h2 { font-size: 1.2rem; }
+.collection-state p { margin-bottom: 0; color: #5f5c75; }

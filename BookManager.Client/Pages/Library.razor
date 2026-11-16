@@ -1,150 +1,87 @@
-﻿@page "/library"
+@page "/library"
 @using BookManager.Application.Interface
 @inject NavigationManager Navigation
 @inject IBookRepository bookRepository
 
 <PageTitle>Library</PageTitle>
 
-<div class="library-page">
-
-    <!-- Header -->
-    <div class="library-header">
-
+<div class="collection">
+    <header class="collection-header">
         <div>
             <h1>My Library</h1>
             <p>Manage your books and track your reading progress.</p>
-            <h3 style="color:rebeccapurple">@DeleteMessage</h3>
         </div>
+        <button type="button" class="collection-add" @onclick="AddBookAsync">+ Add Book</button>
+    </header>
 
-        <button class="add-book-btn" @onclick="AddBookAsync"> 
-            + Add Book
-        </button>
+    @if (!string.IsNullOrWhiteSpace(DeleteMessage))
+    {
+        <p class="collection-message" role="status">@DeleteMessage</p>
+    }
 
-    </div>
-
-    <!-- Books Grid -->
     @if (books == null)
     {
-        <div class="loading">
-            Loading books...
-        </div>
+        <p class="collection-state" role="status">Loading books…</p>
     }
     else if (books.Count == 0)
     {
-        <div class="empty-library">
-            <h3>Your library is empty</h3>
-            <p>Start by adding your first book.</p>
-
-            <button class="add-book-btn" @onclick="AddBookAsync">
-                + Add Book
-            </button>
-        </div>
+        <section class="collection-state">
+            <h2>Your library is empty</h2>
+            <p>Add your first book to start tracking your reading.</p>
+        </section>
     }
     else
     {
-        <div class="books-container">
+        <div class="collection-heading">
+            <h2>Your books</h2>
+            <span>@books.Count @(books.Count == 1 ? "book" : "books")</span>
+        </div>
 
-            <table class="books-grid">
+        <div class="collection-grid">
+            @foreach (var book in books)
+            {
+                var progress = book.TotalPage > 0
+                    ? Math.Clamp((double)book.CurrentReadingPage / book.TotalPage * 100, 0, 100)
+                    : 0;
 
-                <thead>
-                    <tr>
-                        <th>Cover</th>
-                        <th>Title</th>
-                        <th>Author</th>
-                        <th>Category</th>
-                        <th>Progress</th>
-                        <th>Last Update</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    @foreach (var book in books)
-                    {
-                        <tr>
-
-                            <!-- Cover -->
-                            <td>
-                                <img class="book-cover"
-                                     src="@book.Cover"
-                                     alt="@book.Title" />
-                            </td>
-
-                            <!-- Title -->
-                            <td>
-                                <div class="book-title">
-                                    @book.Title
-                                </div>
-                            </td>
-
-                            <!-- Author -->
-                            <td>
-                                @(book.Author?.Name ?? "Unknown")
-                            </td>
-
-                            <!-- Category -->
-                            <td>
-                                <span class="category">
-                                    @(book.Category?.Name ?? "Unknown")
-                                </span>
-                            </td>
-
-                            <!-- Progress -->
-                            <td>
-
-                                @{
-                                    var progress = book.TotalPage > 0
-                                        ? (double)book.CurrentReadingPage / book.TotalPage * 100
-                                        : 0;
-                                }
-
-                                <div class="progress-container">
-
-                                    <div class="progress-bar">
-                                        <div class="progress-fill"
-                                             style="width:@progress%">
-                                        </div>
-                                    </div>
-
-                                    <span class="progress-text">
-                                        @book.CurrentReadingPage / @book.TotalPage
-                                    </span>
-
-                                </div>
-
-                            </td>
-
-                            <!-- Last Update -->
-                            <td>
-                                @book.LastUpdate.ToString("yyyy-MM-dd")
-                            </td>
-
-                            <!-- Actions -->
-                            <td>
-
-                                <div class="actions">
-
-                                    <button @onclick="()=>EditBookAsync(book.ID)" class="edit-btn">
-                                        Edit
-                                    </button>
-
-                                    <button @onclick="() => DeleteBook(book.ID)" class="delete-btn">
-                                        Delete
-                                    </button>
-
-                                </div>
-
-                            </td>
-
-                        </tr>
-                    }
-
-                </tbody>
-
-            </table>
-
+                <article class="collection-card">
+                    <div class="collection-book">
+                        <a class="collection-cover" href="/book/details/@book.ID"
+                           aria-label="@($"View {book.Title}")">
+                            @if (string.IsNullOrWhiteSpace(book.Cover))
+                            {
+                                <span aria-hidden="true">▤</span>
+                            }
+                            else
+                            {
+                                <img src="@book.Cover" alt="" loading="lazy" />
+                            }
+                        </a>
+                        <div class="collection-info">
+                            <span class="collection-category">@(book.Category?.Name ?? "Unknown")</span>
+                            <h3><a href="/book/details/@book.ID">@book.Title</a></h3>
+                            <p>@(book.Author?.Name ?? "Unknown")</p> 
+                        </div>
+                    </div>
+                    <div class="collection-progress">
+                        <div>
+                            <span>Reading progress</span>
+                            <span>@book.CurrentReadingPage / @book.TotalPage pages</span>
+                        </div>
+                        <progress max="100" value="@progress.ToString(System.Globalization.CultureInfo.InvariantCulture)"
+                                  aria-label="@($"Reading progress for {book.Title}")"></progress>
+                    </div>
+                    <footer class="collection-actions">
+                        <time datetime="@book.LastUpdate.ToString("yyyy-MM-dd")">Updated @book.LastUpdate.ToString("yyyy-MM-dd")</time>
+                        <button type="button" class="collection-edit"
+                                aria-label="@($"Edit {book.Title}")"
+                                @onclick="() => EditBookAsync(book.ID)">Edit</button>
+                        <button type="button" class="collection-delete"
+                                aria-label="@($"Delete {book.Title}")"
+                                @onclick="() => DeleteBook(book.ID)">Delete</button>
+                    </footer>
+                </article>
+            }
         </div>
     }
-
 </div>

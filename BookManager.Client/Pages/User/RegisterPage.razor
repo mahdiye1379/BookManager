@@ -1,10 +1,14 @@
-﻿@page "/Register"
+@page "/Register"
 @using BookManager.Application.Interface
 @inject IUserRepository userRepository
 
-<h3>RegisterPage</h3>
+<PageTitle>Create Account</PageTitle>
 
 <div class="register-page">
+    <header class="account-intro">
+        <h1>Build your reading library</h1>
+        <p>Create an account to organize books and track your progress.</p>
+    </header>
 
     <div class="register-card">
 
@@ -13,7 +17,7 @@
             <p>Register to start using BookManager</p>
         </div>
 
-        <EditForm Model="@registerDTO" OnValidSubmit="@RegisterUser">  
+        <EditForm class="register-fields" Model="@registerDTO" OnValidSubmit="@RegisterUser">
             <DataAnnotationsValidator />
 
             <div class="form-group">
@@ -37,10 +41,10 @@
                 <ValidationMessage For="@(() => registerDTO.Email)" />
             </div>
 
-            <div class="form-group">
-                <label>Phone Number</label>
+            <div class="form-group register-wide">
+                <label for="registration-phone">Phone Number</label>
 
-                <InputText @bind-Value="registerDTO.PhoneNumber"
+                <InputText id="registration-phone" autocomplete="tel" @bind-Value="registerDTO.PhoneNumber"
                            class="form-control"
                            placeholder="Enter your phone number" />
 

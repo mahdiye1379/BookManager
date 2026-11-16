@@ -1,4 +1,4 @@
-﻿@page "/book/add/"
+@page "/book/add/"
 @page "/book/edit/{id:guid}"
 @using BookManager.Application.Interface
 @inject IBookRepository bookRepository
@@ -7,7 +7,7 @@
 @inject IFileRepository FileRepository  
 @inject NavigationManager Navigation
 
-<PageTitle>Add Book</PageTitle>
+<PageTitle>@(IsEdit ? "Edit Book" : "Add Book")</PageTitle>
 
 <div class="add-book-page">
 
@@ -15,8 +15,8 @@
     <div class="page-header">
 
         <div>
-            <h1>Add New Book</h1>
-            <p>Add a new book to your personal library.</p>
+            <h1>@(IsEdit ? "Edit Book" : "Add New Book")</h1>
+            <p>@(IsEdit ? "Update the book details and reading progress." : "Add a new book to your personal library.")</p>
         </div>
 
         <a href="/library" class="back-button">
@@ -25,14 +25,17 @@
 
     </div>
 
-    <div style="font-size:24px;color:green">@Message</div>
+    @if (!string.IsNullOrWhiteSpace(Message))
+    {
+        <p class="book-form-message" role="status">@Message</p>
+    }
 
     <!-- Form -->
     <div class="form-card">
 
-        <form @onsubmit="SaveForm">
+        <form class="book-editor-form" @onsubmit="SaveForm">
 
-            <div class="form-section">
+            <div class="form-section book-basics">
 
                 <div class="section-header">
                     <h2>Basic Information</h2>
@@ -78,7 +81,7 @@
                                         @author.Name
                                     </option>
                                 }
-
+                                
                             </select>
 
                             <button type="button" class="Add-button" @onclick="AddAuthor">Add</button>
@@ -155,7 +158,7 @@
             </div>
 
 
-            <div class="form-section">
+            <div class="form-section book-progress">
 
                 <div class="section-header">
                     <h2>Reading Progress</h2>
@@ -184,7 +187,7 @@
             </div>
 
 
-            <div class="form-section">
+            <div class="form-section book-files">
 
                 <div class="section-header">
                     <h2>Book Details</h2>

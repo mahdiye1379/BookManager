@@ -1,59 +1,38 @@
-﻿@inherits LayoutComponentBase
+@inherits LayoutComponentBase
 @using Microsoft.AspNetCore.Components.Authorization
 
-<div class="page">
-    <div class="sidebar">
+<div class="bm-shell">
+    <header class="bm-header">
+        <a class="bm-brand" href="/">
+            <span class="bm-logo" aria-hidden="true">B</span>
+            <span>BookManager</span>
+        </a>
+        <nav class="bm-account" aria-label="Account navigation">
+            <AuthorizeView>
+                <NotAuthorized>
+                    <NavLink class="bm-action" href="/Login">Login</NavLink>
+                    <NavLink class="bm-action bm-primary" href="/Register">Register</NavLink>
+                </NotAuthorized>
+                <Authorized>
+                    <NavLink class="bm-action bm-primary" href="/UserPanel">
+                        User Panel <span aria-hidden="true">↗</span>
+                    </NavLink>
+                </Authorized>
+            </AuthorizeView>
+        </nav>
+    </header>
+
+    <aside class="bm-sidebar">
         <NavMenu />
-    </div>
+    </aside>
 
-    <main>
-        <!-- Top Navigation -->
-        <header class="top-bar">
-            <div class="top-bar-brand">
-                <span class="bi bi-book-half"></span>
-                <span>BookManager</span>
-            </div>
-
-            <nav class="auth-navigation" aria-label="Account navigation">
-                <AuthorizeView>
-
-                    <NotAuthorized>
-                        <NavLink class="auth-link login-link"
-                                 href="/Login">
-                            <span class="bi bi-box-arrow-in-right"
-                                  aria-hidden="true"></span>
-                            <span>Login</span>
-                        </NavLink>
-
-                        <NavLink class="auth-link register-link"
-                                 href="/Register">
-                            <span class="bi bi-person-plus-fill"
-                                  aria-hidden="true"></span>
-                            <span>Register</span>
-                        </NavLink>
-                    </NotAuthorized>
-
-                    <Authorized>
-                        <NavLink class="auth-link register-link"
-                                 href="/UserPanel">
-                            <span class="bi bi-person-plus-fill"
-                                  aria-hidden="true"></span>
-                            <span>User Panel</span>
-                        </NavLink>
-                    </Authorized>
-                </AuthorizeView>
-            </nav>
-        </header>
-
-        <!-- Page Content -->
-        <article class="content px-4">
-            @Body
-        </article>
+    <main class="bm-content">
+        @Body
     </main>
 </div>
 
 <div id="blazor-error-ui" data-nosnippet>
     An unhandled error has occurred.
     <a href="." class="reload">Reload</a>
-    <span class="dismiss">🗙</span>
+    <span class="dismiss" title="Dismiss">×</span>
 </div>

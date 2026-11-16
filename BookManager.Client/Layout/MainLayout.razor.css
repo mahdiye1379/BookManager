@@ -1,256 +1,167 @@
+.bm-shell {
+    --bm-ink: #191735;
+    --bm-muted: #5f5c75;
+    --bm-accent: #4f46e5;
+    --bm-accent-dark: #3730a3;
+    --bm-line: #e7e4f0;
+    --bm-tint: #eeebff;
+    --bm-header-height: 72px;
 
-/* ==============================
-   Main Layout
-============================== */
-
-.page {
-    position: relative;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 224px minmax(0, 1fr);
+    grid-template-rows: var(--bm-header-height) 1fr;
     min-height: 100vh;
+    background: #f8f8fc;
+    color: var(--bm-ink);
+    font-family: Inter, system-ui, sans-serif;
 }
 
-main {
-    flex: 1;
-    min-width: 0;
-    background-color: #f8fafc;
-}
-
-.sidebar {
-    background-image: linear-gradient( 180deg, rgb(5, 39, 103) 0%, #3a0647 70% );
-}
-
-/* ==============================
-   Top Navigation
-============================== */
-
-.top-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    min-height: 72px;
-    padding: 12px 28px;
-    background-color: #ffffff;
-    border-bottom: 1px solid #e5e7eb;
+.bm-header {
     position: sticky;
     top: 0;
     z-index: 10;
-}
-
-/* Brand */
-
-.top-bar-brand {
+    grid-column: 1 / -1;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding-inline: clamp(12px, 3vw, 36px);
+    border-bottom: 1px solid var(--bm-line);
+    background: #fff;
+    box-shadow: 0 4px 16px rgb(35 22 74 / 5%);
+}
+
+.bm-brand {
+    display: inline-flex;
+    align-items: center;
     gap: 10px;
-    color: #1e293b;
-    font-size: 18px;
+    color: var(--bm-ink);
+    font-size: 1.125rem;
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    text-decoration: none;
+}
+
+.bm-logo {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 13px;
+    background: linear-gradient(145deg, #4f46e5, #7c3aed);
+    color: #fff;
+    box-shadow: 0 5px 12px rgb(79 70 229 / 24%);
+}
+
+.bm-account {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.bm-account ::deep .bm-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 14px;
+    border-radius: 11px;
+    color: var(--bm-muted);
+    font-size: 0.875rem;
     font-weight: 700;
+    text-decoration: none;
     white-space: nowrap;
 }
 
-    .top-bar-brand .bi {
-        color: #7c3aed;
-        font-size: 22px;
-    }
-
-/* ==============================
-   Authentication Navigation
-============================== */
-
-.auth-navigation {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+.bm-account ::deep .bm-action:hover,
+.bm-account ::deep .bm-action.active {
+    background: var(--bm-tint);
+    color: var(--bm-accent-dark);
 }
 
-    /* Shared Button Style */
-
-    .auth-navigation ::deep .auth-link {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        min-height: 42px;
-        padding: 10px 20px;
-        border-radius: 10px;
-        font-size: 14px;
-        font-weight: 600;
-        text-decoration: none;
-        transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
-    }
-
-        .auth-navigation ::deep .auth-link:hover {
-            text-decoration: none;
-        }
-
-        .auth-navigation ::deep .auth-link .bi {
-            font-size: 16px;
-        }
-
-    /* ==============================
-   Login Button
-============================== */
-
-    .auth-navigation ::deep .login-link {
-        color: #475569;
-        background-color: #f1f5f9;
-        border: 1px solid #e2e8f0;
-    }
-
-        .auth-navigation ::deep .login-link:hover {
-            color: #1e293b;
-            background-color: #e2e8f0;
-            border-color: #cbd5e1;
-        }
-
-    /* ==============================
-   Register Button
-============================== */
-
-    .auth-navigation ::deep .register-link {
-        color: #ffffff;
-        background-color: #7c3aed;
-        border: 1px solid #7c3aed;
-        box-shadow: 0 2px 6px rgba(124, 58, 237, 0.15);
-    }
-
-        .auth-navigation ::deep .register-link:hover {
-            color: #ffffff;
-            background-color: #6d28d9;
-            border-color: #6d28d9;
-            box-shadow: 0 5px 14px rgba(124, 58, 237, 0.25);
-            transform: translateY(-1px);
-        }
-
-    /* Active Login Link */
-
-    .auth-navigation ::deep .login-link.active {
-        color: #6d28d9;
-        background-color: #f3e8ff;
-        border-color: #ddd6fe;
-    }
-
-    /* Active Register Link */
-
-    .auth-navigation ::deep .register-link.active {
-        color: #ffffff;
-        background-color: #5b21b6;
-        border-color: #5b21b6;
-    }
-
-    /* Keyboard Accessibility */
-
-    .auth-navigation ::deep .auth-link:focus-visible {
-        outline: 2px solid #7c3aed;
-        outline-offset: 3px;
-    }
-
-/* ==============================
-   Page Content
-============================== */
-
-.content {
-    padding-top: 24px;
-    padding-bottom: 32px;
+.bm-account ::deep .bm-primary {
+    background: var(--bm-accent);
+    color: #fff;
 }
 
-/* ==============================
-   Responsive Layout
-============================== */
-
-@media (min-width: 641px) {
-
-    .page {
-        flex-direction: row;
-    }
-
-    .sidebar {
-        width: 250px;
-        height: 100vh;
-        position: sticky;
-        top: 0;
-        flex-shrink: 0;
-    }
-
-    .top-bar {
-        padding-left: 32px;
-        padding-right: 32px;
-    }
-
-    article {
-        padding-left: 2rem !important;
-        padding-right: 1.5rem !important;
-    }
+.bm-account ::deep .bm-primary:hover,
+.bm-account ::deep .bm-primary.active {
+    background: var(--bm-accent-dark);
+    color: #fff;
 }
 
-@media (max-width: 640px) {
+.bm-brand:focus-visible,
+.bm-account ::deep .bm-action:focus-visible {
+    outline: 2px solid var(--bm-accent);
+    outline-offset: 3px;
+}
 
-    .top-bar {
-        min-height: 64px;
-        padding: 10px 16px;
+.bm-sidebar {
+    position: sticky;
+    top: var(--bm-header-height);
+    align-self: start;
+    height: calc(100vh - var(--bm-header-height));
+    padding: 24px 14px;
+    overflow-y: auto;
+    border-right: 1px solid var(--bm-line);
+    background: linear-gradient(180deg, #fff, #f3f0ff);
+}
+
+.bm-content {
+    min-width: 0;
+    padding: 12px clamp(10px, 2vw, 24px) 28px;
+}
+
+#blazor-error-ui {
+    position: fixed;
+    inset: auto 0 0;
+    z-index: 1000;
+    display: none;
+    padding: 12px 44px 12px 18px;
+    border-top: 1px solid #f5d698;
+    background: #fff5dc;
+    color: #513600;
+}
+
+#blazor-error-ui .dismiss {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    cursor: pointer;
+    font-size: 1.25rem;
+}
+
+@media (max-width: 760px) {
+    .bm-shell {
+        --bm-header-height: 64px;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: var(--bm-header-height) auto 1fr;
     }
 
-    .top-bar-brand {
-        font-size: 15px;
-    }
-
-        .top-bar-brand .bi {
-            font-size: 18px;
-        }
-
-    .auth-navigation {
-        gap: 8px;
-    }
-
-        .auth-navigation ::deep .auth-link {
-            min-height: 38px;
-            padding: 8px 12px;
-            font-size: 13px;
-        }
-
-            .auth-navigation ::deep .auth-link .bi {
-                font-size: 14px;
-            }
-
-    .content {
-        padding-top: 16px;
+    .bm-sidebar {
+        position: static;
+        height: auto;
+        padding: 8px 12px;
+        border-right: 0;
+        border-bottom: 1px solid var(--bm-line);
     }
 }
 
 @media (max-width: 380px) {
-
-    .top-bar-brand span:last-child {
-        display: none;
+    .bm-brand {
+        gap: 6px;
+        font-size: 0.9rem;
     }
 
-    .auth-navigation ::deep .auth-link {
-        padding: 8px 10px;
+    .bm-logo {
+        width: 32px;
+        height: 32px;
+        border-radius: 10px;
+    }
+
+    .bm-account ::deep .bm-action {
+        padding-inline: 8px;
+        font-size: 0.8125rem;
     }
 }
-
-/* ==============================
-   Blazor Error UI
-============================== */
-
-#blazor-error-ui {
-    color-scheme: light only;
-    background: lightyellow;
-    bottom: 0;
-    left: 0;
-    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
-    box-sizing: border-box;
-    display: none;
-    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
-    position: fixed;
-    width: 100%;
-    z-index: 1000;
-}
-
-    #blazor-error-ui .dismiss {
-        cursor: pointer;
-        position: absolute;
-        right: 0.75rem;
-        top: 0.5rem;
-    }

@@ -3,14 +3,125 @@
 @using BookManager.Application.Interface
 @inject IBookRepository bookRepository
 
-<PageTitle>My Library</PageTitle>
+<PageTitle>Free Programming Books</PageTitle>
+
+<div class="library-page">
+    <header class="library-hero">
+        <h1>Free Programming<br />Books</h1>
+        <p>Find your next programming read.</p>
+
+        <div class="search-bar" role="search">
+            <span class="search-icon" aria-hidden="true"></span>
+
+            <input type="search"
+                   aria-label="Search books by title"
+                   placeholder="Search by title..."
+                   @bind="SearchText"
+                   @bind:event="oninput" />
+
+            <button type="button" @onclick="SearchBooks">Search</button>
+        </div>
+    </header>
+
+    <section class="library-results" aria-labelledby="library-heading">
+        <div class="results-header">
+            <h2 id="library-heading">Browse books</h2>
+            <span class="results-count" aria-live="polite">
+                @(Books?.Count ?? 0) on this page
+            </span>
+        </div>
+
+        @if (Books is { Count: > 0 } books)
+        {
+            <div class="books-grid">
+                @foreach (Book item in books)
+                {
+                    <a class="book-card" href="/book/details/@item.ID">
+                        <div class="book-cover">
+                            @if (string.IsNullOrWhiteSpace(item.Cover))
+                            {
+                                <span class="cover-placeholder" aria-hidden="true">&lt;/&gt;</span>
+                            }
+                            else
+                            {
+                                <img src="@item.Cover" alt="" loading="lazy" />
+                            }
+                        </div>
+
+                        <div class="book-content">
+                            <h3>@item.Title</h3>
+                            <span class="book-link">
+                                View details <span aria-hidden="true">↗</span>
+                            </span>
+                        </div>
+                    </a>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="empty-state">
+                <h3>No books to display</h3>
+                <p>Try another title or clear the search and select Search.</p>
+            </div>
+        }
+    </section>
+
+    @if (TotalPage > 1)
+    {
+        <nav class="pagination" aria-label="Book pages">
+            <button type="button"
+                    class="page-button"
+                    disabled="@(CurrentPage == 1)"
+                    @onclick="PreviousPage">
+                <span aria-hidden="true">←</span> Previous
+            </button>
+
+            @for (int i = 1; i <= TotalPage; i++)
+            {
+                int pageNumber = i;
+                bool isCurrentPage = CurrentPage == pageNumber;
+
+                <button type="button"
+                        class="page-button page-number @(isCurrentPage ? "is-current" : "")"
+                        aria-label="@($"Page {pageNumber}")"
+                        aria-current="@(isCurrentPage ? "page" : null)"
+                        @onclick="() => ChangePage(pageNumber)">
+                    @pageNumber
+                </button>
+            }
+
+            <button type="button"
+                    class="page-button"
+                    disabled="@(CurrentPage >= TotalPage)"
+                    @onclick="NextPage">
+                Next <span aria-hidden="true">→</span>
+            </button>
+
+        </nav>
+    }
+</div>
+
+
+
+
+
+
+
+
+@* @page "/"
+@using BookManager.Domain.Model
+@using BookManager.Application.Interface
+@inject IBookRepository bookRepository
+
+<PageTitle>Free Programming Books</PageTitle>
 
 <div class="library-page">
 
     <!-- Header -->
     <div class="library-header">
         <div>
-            <h1>Programming Books </h1>
+            <h1>Free Programming Books </h1>
             <p>Your personal collection of books</p>
         </div>
 
@@ -109,3 +220,4 @@
     </button>
 
 </div>
+ *@
