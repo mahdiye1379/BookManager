@@ -1,0 +1,113 @@
+﻿@page "/categories"
+@using BookManager.Application.Interface
+@inject ICategoryRepository CategoryRepository
+@inject IBookRepository BookRepository
+
+<PageTitle>Categories | BookManager</PageTitle>
+
+<div class="categories-page">
+    <header class="categories-header">
+        <h1>Explore by category</h1>
+        <p>Choose a subject and find your next read.</p>
+    </header>
+
+    @if (isLoading)
+    {
+        <div class="page-state" role="status">Loading categories…</div>
+    }
+    else if (!string.IsNullOrWhiteSpace(errorMessage))
+    {
+        <div class="page-state" role="alert">
+            <h2>Couldn't load categories</h2>
+        <p>@errorMessage</p>
+        </div>
+    }
+    else if (categories.Count == 0)
+    {
+        <div class="page-state">
+            <h2>No categories yet</h2>
+            <p>Categories will appear here when they are added.</p>
+        </div>
+    }
+    else
+    {
+        <section aria-label="Book categories" class="category-grid">
+        @foreach (var category in categories)
+            {
+                var isSelected = selectedCategory?.ID == category.ID;
+                var count = books.Count(book => book.CategoryId == category.ID);
+
+                <button type="button"
+                        class="category-card @(isSelected ? "is-selected" : "")"
+                        aria-pressed="@(isSelected ? "true" : "false")"
+                        aria-controls="category-books"
+                        @onclick="() => SelectCategory(category)">
+                    <span class="category-icon" aria-hidden="true">▤</span>
+                    <span class="category-name">@category.Name</span>
+                    <span class="category-footer">
+                        <span>@count @(count == 1 ? "book" : "books")</span>
+                        <span aria-hidden="true">↘</span>
+                    </span>
+                </button>
+            }
+        </section>
+
+        <section id="category-books"
+                 class="category-results"
+                 aria-labelledby="category-results-heading">
+            @if (selectedCategory is null)
+            {
+                <div class="page-state">
+                    <h2 id="category-results-heading">What would you like to read?</h2>
+                    <p>Select a category above to explore its books.</p>
+                </div>
+            }
+            else
+            {
+                <header class="results-header">
+                    <h2 id="category-results-heading">@selectedCategory.Name</h2>
+                    <span role="status">
+                        @selectedBooks.Count @(selectedBooks.Count == 1 ? "book" : "books")
+                    </span>
+                </header>
+
+                @if (selectedBooks.Count == 0)
+                {
+                    <div class="page-state">
+                        <h3>No books in this category yet</h3>
+                        <p>Choose another category to keep exploring.</p>
+                    </div>
+                }
+                else
+                {
+                    <div class="category-books-grid">
+                        @foreach (var book in selectedBooks)
+                        {
+                            <a class="category-book"
+                               href="/book/details/@book.ID">
+                                <div class="book-art">
+                                    @if (string.IsNullOrWhiteSpace(book.Cover))
+                                    {
+                                        <span aria-hidden="true">&lt;/&gt;</span>
+                                    }
+                                    else
+                                    {
+                                        <img src="@book.Cover" alt="" loading="lazy" />
+                                    }
+                                </div>
+
+                                <div class="book-info">
+                                    <h3>@book.Title</h3>
+                                    <span class="book-action">
+                                        View details
+                                        <span aria-hidden="true">↗</span>
+                                    </span>
+                                </div>
+                            </a>
+                        }
+                    </div>
+                }
+            }
+        </section>
+    }
+</div>

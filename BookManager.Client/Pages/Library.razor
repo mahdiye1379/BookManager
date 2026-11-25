@@ -14,6 +14,44 @@
         <button type="button" class="collection-add" @onclick="AddBookAsync">+ Add Book</button>
     </header>
 
+    <form class="library-search"
+          @onsubmit="SearchBooks"
+          @onsubmit:preventDefault>
+
+        <div class="library-search-field">
+            <svg class="library-search-icon"
+                 xmlns="http://www.w3.org/2000/svg"
+                 width="22" height="22"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="currentColor"
+                 stroke-width="1.8"
+                 stroke-linecap="round"
+                 aria-hidden="true">
+                <circle cx="10.5" cy="10.5" r="7" />
+                <path d="m16 16 4.5 4.5" />
+            </svg>
+
+            <input type="search"
+                   aria-label="Search books by title"
+                   placeholder="Find your next read..."
+                   autocomplete="off"
+                   @bind="SearchText"
+                   @bind:event="oninput" />
+        </div>
+
+        <button type="submit" class="library-search-button" disabled="@isSearching">
+            @(isSearching ? "Searching…" : "Search")
+            <span aria-hidden="true">↗</span>
+        </button>
+    </form>
+
+
+    @if (!string.IsNullOrWhiteSpace(searchError))
+    {
+        <p class="collection-message" role="alert">@searchError</p>
+    }
+
     @if (!string.IsNullOrWhiteSpace(DeleteMessage))
     {
         <p class="collection-message" role="status">@DeleteMessage</p>
@@ -26,8 +64,16 @@
     else if (books.Count == 0)
     {
         <section class="collection-state">
-            <h2>Your library is empty</h2>
-            <p>Add your first book to start tracking your reading.</p>
+            @if (string.IsNullOrWhiteSpace(SearchText))
+            {
+                <h2>Your library is empty</h2>
+                <p>Add your first book to start tracking your reading.</p>
+            }
+            else
+            {
+                <h2>No books found</h2>
+                <p>Try another title.</p>
+            }
         </section>
     }
     else

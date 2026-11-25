@@ -116,3 +116,107 @@
     .collection-actions time { flex-basis: 100%; }
     .collection-edit, .collection-delete { flex: 1; }
 }
+
+.library-search {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 24px 0;
+    padding: 8px;
+    background: #fff;
+    border: 1px solid #e3dcfa;
+    border-radius: 18px;
+    box-shadow: 0 6px 24px rgba(79, 52, 145, 0.05);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+    .library-search:focus-within {
+        border-color: #8b65f0;
+        box-shadow: 0 0 0 4px rgba(117, 67, 235, 0.1);
+    }
+
+.library-search-field {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 0;
+    gap: 12px;
+    padding-left: 12px;
+}
+
+.library-search-icon {
+    flex-shrink: 0;
+    color: #837899;
+}
+
+.library-search-field input {
+    width: 100%;
+    min-width: 0;
+    height: 44px;
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #211936;
+    font: inherit;
+    font-size: 15px;
+}
+
+    .library-search-field input::placeholder {
+        color: #948aab;
+    }
+
+.library-search-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    gap: 14px;
+    min-height: 46px;
+    padding: 0 24px;
+    border: none;
+    border-radius: 12px;
+    background: #7543eb;
+    color: #fff;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+}
+
+    .library-search-button:hover {
+        background: #6232d1;
+        box-shadow: 0 4px 12px rgba(117, 67, 235, 0.22);
+    }
+
+    .library-search-button:focus-visible {
+        outline: 3px solid #7543eb;
+        outline-offset: 3px;
+    }
+
+    .library-search-button span {
+        font-size: 20px;
+    }
+
+@media (max-width: 480px) {
+    .library-search {
+        gap: 6px;
+        border-radius: 14px;
+    }
+
+    .library-search-field {
+        gap: 8px;
+        padding-left: 6px;
+    }
+
+        .library-search-field input {
+            font-size: 14px;
+        }
+
+    .library-search-button {
+        gap: 8px;
+        padding: 0 14px;
+    }
+}

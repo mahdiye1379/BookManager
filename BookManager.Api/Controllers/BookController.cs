@@ -44,6 +44,14 @@ namespace BookManager.Api.Controllers
             return Ok(ListBooks);
         }
 
+
+        [HttpGet("{SearchText}")]
+        public async Task<IActionResult> SearchTitle([FromRoute] string SearchText)
+        {
+            List<Book>? ListBooks = await _bookRepository.SearchTitle(SearchText);
+            return Ok(ListBooks);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> Find([FromRoute]Guid id)
         {

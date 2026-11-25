@@ -1,4 +1,4 @@
-﻿
+
 using BookManager.Application.Interface;
 using BookManager.Domain.Model;
 using System.Net;
@@ -49,6 +49,20 @@ namespace BookManager.Infrastructure.Repository.RestRepository
             List<Book>? Books = await result.Content.ReadFromJsonAsync<List<Book>>();
 
             return Books;
+        }
+
+        public async Task<List<Book>?> SearchTitle(string SearchText)
+        {
+            using HttpResponseMessage result = await Client.GetAsync("Book/Get");
+            result.EnsureSuccessStatusCode();
+
+            List<Book> books = await result.Content.ReadFromJsonAsync<List<Book>>() ?? new();
+            string title = SearchText.Trim();
+
+            return books
+                .Where(book => book.Title?.Contains(title, StringComparison.OrdinalIgnoreCase) == true)
+                .OrderByDescending(book => book.LastUpdate)
+                .ToList();
         }
 
         public async Task<Book?> GetOne(Guid id)

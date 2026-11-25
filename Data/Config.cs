@@ -2,6 +2,6 @@
 {
     public class Config
     {
-        public static string ApiBaseUrl = "http://api.programmingbooks.ir/api/";
+        public static string ApiBaseUrl = "https://api.programmingbooks.ir/api/";
     }
 }

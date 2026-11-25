@@ -34,6 +34,16 @@ namespace BookManager.Infrastructure.Repository.EfRepository
             return Books;
         }
 
+        public async Task<List<Book>?> SearchTitle(string SearchText)
+        {
+
+            List<Book> Books = await _dbContext.Books
+                                                .Where(x => x.Title.Contains(SearchText))
+                                                .OrderByDescending(x => x.LastUpdate)
+                                                .ToListAsync();
+            return Books;
+        }
+
         public async Task<List<Book>?> GetAll()
         {
             List<Book> Books = await _dbContext.Books.ToListAsync();

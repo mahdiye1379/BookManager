@@ -8,6 +8,7 @@ namespace BookManager.Application.Interface
         public Task<int> GetBookCount();
         public Task<List<Book>?> GetAll(int Page,int Count); 
         public Task<List<Book>?> Search(int Page, int Count,string SearchText);
+        public Task<List<Book>?> SearchTitle(string SearchText);
         public Task<Book?> GetOne(Guid id);
         public Task<(string, bool)> Delete(Guid? Id);
         public Task<(bool, string)> Save(Book book);
