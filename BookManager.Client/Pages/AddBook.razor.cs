@@ -1,4 +1,4 @@
-using BookManager.Domain.Model;
+using BookManager.Domain.Model.Book;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 
@@ -13,13 +13,13 @@ namespace BookManager.Client.Pages
 
         public string Message { get; set; } 
         public Book UiBook { get; set; } = new();
-        public BookManager.Domain.Model.Category category { get; set; } = new();
+        public Domain.Model.Book.Category category { get; set; } = new();
 
         private bool IsUploadingPdf, IsUploadingCover;
 
         public List<Author>? Authors { get; set; } = new();
 
-        public List<BookManager.Domain.Model.Category>? Categories { get; set; } = new();
+        public List<Domain.Model.Book.Category>? Categories { get; set; } = new();
 
         long maxFileSize = 104857600;
 

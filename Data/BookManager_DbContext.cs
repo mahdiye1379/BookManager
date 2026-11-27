@@ -1,4 +1,5 @@
-﻿using BookManager.Domain.Model;
+﻿using BookManager.Domain.Model.Book;
+using BookManager.Domain.Model.User;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookManager.Infrastructure

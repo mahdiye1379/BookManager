@@ -1,6 +1,6 @@
-﻿using BookManager.Domain.Model;
+﻿using BookManager.Domain.Model.Book;
 using Microsoft.AspNetCore.Components;
-using CategoryModel = BookManager.Domain.Model.Category;
+using CategoryModel = BookManager.Domain.Model.Book.Category;
 
 namespace BookManager.Client.Pages
 {

@@ -1,5 +1,5 @@
 ﻿using BookManager.Application.Interface;
-using BookManager.Domain.Model;
+using BookManager.Domain.Model.Book;
 using System.Net;
 using System.Net.Http.Json;
 

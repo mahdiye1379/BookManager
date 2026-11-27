@@ -1,4 +1,4 @@
-﻿using BookManager.Domain.Model;
+﻿using BookManager.Domain.Model.Book;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;

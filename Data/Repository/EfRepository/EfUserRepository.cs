@@ -1,7 +1,7 @@
 ﻿using BookManager.Domain.DTO;
 using BookManager.Application.Interface;
-using BookManager.Domain.Model;
 using Microsoft.EntityFrameworkCore;
+using BookManager.Domain.Model.User;
 
 namespace BookManager.Infrastructure.Repository.EfRepository
 {

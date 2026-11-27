@@ -1,4 +1,3 @@
-using BookManager.Domain.Model;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
@@ -6,7 +5,7 @@ namespace BookManager.Client.Pages
 {
     public partial class AddCategory : ComponentBase
     {
-        BookManager.Domain.Model.Category Category = new();
+        Domain.Model.Book.Category Category = new();
 
         private string FormMessage { get; set; } = "";
 
@@ -34,7 +33,7 @@ namespace BookManager.Client.Pages
         private async Task GetCategory()
         {
 
-            BookManager.Domain.Model.Category? category = await CategoryRepository.GetOne(Id.Value);
+            Domain.Model.Book.Category? category = await CategoryRepository.GetOne(Id.Value);
 
             if (category == null)
                 return;

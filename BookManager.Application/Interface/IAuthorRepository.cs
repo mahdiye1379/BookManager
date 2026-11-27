@@ -1,4 +1,4 @@
-﻿using BookManager.Domain.Model;
+﻿using BookManager.Domain.Model.Book;
 
 namespace BookManager.Application.Interface
 {
